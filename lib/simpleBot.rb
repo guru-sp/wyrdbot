@@ -55,6 +55,7 @@ class SimpleIrcBot
             case target
             when 'google' then say_to_chan(google_search(query))
             when 'doc' then say_to_chan("Documentação: #{query}")
+            when 'dolar' then say_to_chan(cotacao_dolar)
             else say_to_chan("Comando não reconhecido!")
             end
         end
