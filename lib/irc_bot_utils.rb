@@ -16,7 +16,6 @@ module GoogleSearch
         str = doc.css('h3.r').to_s
         urls = str.scan(/<a href="([^"]+)"/)
         urls.flatten!
-        p urls
         urls[0..1].join(' ')
     end
 
