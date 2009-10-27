@@ -20,3 +20,6 @@ module GoogleSearch
     end
 
 end
+
+module Utils
+end
