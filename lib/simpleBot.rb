@@ -11,6 +11,7 @@ require 'irc_bot_utils'
 class SimpleIrcBot
 
     include GoogleSearch
+    include Utils
 
   def initialize(server, port, channel, nick = 'wyrd')
     @channel = channel
