@@ -1,4 +1,4 @@
-# encoding: iso-8859-1
+# encoding: utf-8
 #
 # Original code by Kevin Glowacz 
 # found in http://github.com/kjg/simpleircbot
@@ -12,7 +12,7 @@ class SimpleIrcBot
 
     include GoogleSearch
 
-  def initialize(server, port, channel, nick = 'wird')
+  def initialize(server, port, channel, nick = 'wyrd')
     @channel = channel
     @socket = TCPSocket.open(server, port)
     say "NICK #{nick}"
@@ -33,13 +33,14 @@ class SimpleIrcBot
   def run
     until @socket.eof? do
       msg = @socket.gets
-      puts msg
 
       if msg.match(/^PING :(.*)$/)
         say "PONG #{$~[1]}"
+        $stderr.write(msg)
         next
       end
 
+      $stdout.write(msg)
       if msg.match(/:([^!]+)!.*PRIVMSG ##{@channel} :(.*)$/)
         nick = $~[1]
         content = $~[2]
