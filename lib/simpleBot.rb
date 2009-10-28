@@ -65,12 +65,15 @@ class SimpleIrcBot
                         end
                     else say_to_chan("Se você pedir direito, talvez eu te ajude!")
                     end
+                    next
                 end
                 if content.match(/[Bb]om [Dd]ia/)
                   say_to_chan("Bom dia, #{nick}!")
+                  next
                 end
                 if content.match(/[Bb]oa [Tt]arde/)
                    say_to_chan("Boa tarde, #{nick}!")
+                   next
                 end
             end
         end
