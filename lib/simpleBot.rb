@@ -56,10 +56,10 @@ class SimpleIrcBot
                     when 'google' then say_to_chan(google_search(query))
                     when 'doc' then say_to_chan("Documentação: #{query}")
                     when 'dolar' then say_to_chan(cotacao_dolar)
-                    when /^translate/
-                        if target =~ /^translate-(..)-(..)/
+                    when /^t/
+                        if target =~ /^t-(..)-(..)/
                             trad = translate($~[1], $~[2], query)
-                            say_to_chan("Tradução: #{trad}")
+                            say_to_chan("Trad: #{trad}")
                         else
                             say_to_chan("Não pude traduzir")
                         end
