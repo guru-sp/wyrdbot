@@ -12,6 +12,7 @@ class SimpleIrcBot
 
     include GoogleSearch
     include Utils
+    include Greetings
 
     def initialize(server, port, channel, nick = 'wyrd')
         @channel = channel
