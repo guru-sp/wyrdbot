@@ -67,14 +67,9 @@ class SimpleIrcBot
                     end
                     next
                 end
-                if content.match(/[Bb]om [Dd]ia/)
-                  say_to_chan("Bom dia, #{nick}!")
-                  next
-                end
-                if content.match(/[Bb]oa [Tt]arde/)
-                   say_to_chan("Boa tarde, #{nick}!")
-                   next
-                end
+
+		greeting = greet(content, nick)
+		say_to_chan(greeting) if greeting
             end
         end
     end
