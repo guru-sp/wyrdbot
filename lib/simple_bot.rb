@@ -4,7 +4,9 @@
 # found in http://github.com/kjg/simpleircbot
 
 require 'socket'
-require 'irc_bot_utils'
+require 'utils'
+require 'greetings'
+require 'google_search'
 
 class SimpleIrcBot
   include GoogleSearch
