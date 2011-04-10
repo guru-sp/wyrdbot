@@ -6,9 +6,9 @@
 require 'socket'
 
 class SimpleIrcBot
-  include ::GoogleSearch
-  include ::Utils
-  include ::Greetings
+  include GoogleServices
+  include Utils
+  include Greetings
 
   def initialize(server, port, channel, nick = 'wyrd')
     @channel = channel
@@ -16,7 +16,6 @@ class SimpleIrcBot
     say "NICK #{nick}"
     say "USER #{nick} 0 * #{nick.capitalize}"
     say "JOIN ##{@channel}"
-    #say_to_chan "#{1.chr}ACTION is here to help#{1.chr}"
   end
 
   def say(msg)
@@ -42,10 +41,8 @@ class SimpleIrcBot
         nick = $~[1]
         content = $~[2]
 
-        #put matchers here
-        if content.match(/^!([^:]+):(.*)$/)
-          target = $~[1]
-          query = $~[2]
+        if content.match(/^!(.*)\s(.*)$/)
+          target, query = $~[1], $~[2]
           query.squeeze!(' ')
           query.strip!
 
@@ -55,12 +52,12 @@ class SimpleIrcBot
           when 'dolar' then say_to_chan(cotacao_dolar)
           when /^t/
             if target =~ /^t-(..)-(..)/
-              trad = translate($~[1], $~[2], query)
-            say_to_chan("Trad: #{trad}")
+              say_to_chan("Trad: #{translate($~[1], $~[2], query)}")
             else
               say_to_chan("Não pude traduzir")
             end
-          else say_to_chan("Se você pedir direito, talvez eu te ajude!")
+          else
+            say_to_chan("Se você pedir direito, talvez eu te ajude!")
           end
           next
         end
