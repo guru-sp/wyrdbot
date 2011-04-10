@@ -25,14 +25,14 @@ module Greetings
       when :afternoon
         "Boa tarde, #{nick}!"
       when :night
-        "Boa noite, #{nick}! Já escureceu são #{Time.now.strftime("%H:%M")}."
+        "Boa noite, #{nick}! Já escureceu. São #{Time.now.strftime("%H:%M")}."
       end
     when /[Bb]oa [Nn]oite/
       case day_part
       when :morning
-        "Bom dia, #{nick}! Quanta pressa o dia acabou de começar."
+        "Bom dia, #{nick}! Quanta pressa. O dia acabou de começar."
       when :afternoon
-        "Boa tarde, #{nick}. Ainda não escureceu são #{Time.now.strftime("%H:%M")}."
+        "Boa tarde, #{nick}. Ainda não escureceu. São #{Time.now.strftime("%H:%M")}."
       when :night
         "Boa noite, #{nick}!"
       end
