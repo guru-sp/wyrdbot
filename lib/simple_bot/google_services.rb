@@ -1,10 +1,13 @@
 # encoding: utf-8
-require 'open-uri'
+require "open-uri"
+require "json"
 
 module GoogleServices
   G_SITE = 'http://www.google.com.br'
   G_PATH = '/search'
   G_VARS = 'q'
+
+  attr_reader :google_api_key
 
   def google_search(params)
     url = G_SITE + G_PATH + '?' + G_VARS + '=' + params
@@ -16,20 +19,19 @@ module GoogleServices
     urls[0..1].join(' ')
   end
 
-  def translate(sl, dl, str)
-    raise "Not Implemented yet"
+  def translate(sl, dl, query)
+    host = "https://www.googleapis.com/language/translate/v2?key=#{use_key}"
+    qry  = "&source=#{sl}&target=#{dl}&q=#{query}"
+    url = host + qry
 
-    host = "https://www.googleapis.com/language/translate/v2?key=#{GOOGLEAPI_KEY}&source=en&target=de&callback=translateText&q="
-    path = "/translate_a/t?"
-    qry = ["client=t",
-      "text=#{str}",
-    "sl=#{sl}",
-    "tl=#{dl}",
-    "oc=0",
-      "pc=0"] * '&'
-    url = host + path + qry
-    doc = Nokogiri::HTML(open(URI.encode(url)))
-    ret = doc.xpath("//p").text
-    ret
+    text = JSON.parse(open(URI.encode(url)).read)
+
+    text["data"]["translations"].first["translatedText"]
+  end
+
+  module_function
+  def use_key
+    file_path = "#{File.expand_path(File.dirname(__FILE__))}/../../google_api.key"
+    @google_api_key ||= File.open(file_path).read.chomp
   end
 end

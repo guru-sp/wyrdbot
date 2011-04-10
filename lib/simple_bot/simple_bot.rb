@@ -41,10 +41,8 @@ class SimpleIrcBot
         nick = $~[1]
         content = $~[2]
 
-        if content.match(/^!(.*)\s(.*)$/)
+        if content.match(/^!(.*)\s+(.*)\n?$/)
           target, query = $~[1], $~[2]
-          query.squeeze!(' ')
-          query.strip!
 
           case target
           when 'google' then say_to_chan(google_search(query))
@@ -52,9 +50,9 @@ class SimpleIrcBot
           when 'dolar' then say_to_chan(cotacao_dolar)
           when /^t/
             if target =~ /^t-(..)-(..)/
-              say_to_chan("Trad: #{translate($~[1], $~[2], query)}")
+              say_to_chan(translate($~[1], $~[2], query))
             else
-              say_to_chan("Não pude traduzir")
+              say_to_chan("Ow, usa o formato: t-ligua1-lingua2. #fikdik")
             end
           else
             say_to_chan("Se você pedir direito, talvez eu te ajude!")
