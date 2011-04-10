@@ -46,7 +46,7 @@ class SimpleIrcBot
           case target
           when 'google' then say_to_chan(google_search(query))
           when 'doc' then say_to_chan("Documentação: #{query}")
-          when 'dolar' then say_to_chan(cotacao_dolar)
+          when 'dolar' then say_to_chan(dolar_to_real)
           when /^t/ then say_to_chan(try_to_translate(target, query))
           else
             say_to_chan("Se você pedir direito, talvez eu te ajude!")
@@ -61,7 +61,7 @@ class SimpleIrcBot
   end
 
   def try_to_translate(target, query)
-    wrong_format = "Ow, usa o formato: t-idioma1-lidioma2. #fikdik"
+    wrong_format = "Ow, usa o formato: t-idioma1-idioma2. #fikdik"
     begin
 			target =~ /^t-(..)-(..)/ ?  translate($~[1], $~[2], query) : wrong_format
 		rescue
