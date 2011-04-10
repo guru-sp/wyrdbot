@@ -33,5 +33,7 @@ module GoogleServices
   def use_key
     file_path = "#{File.expand_path(File.dirname(__FILE__))}/../../google_api.key"
     @google_api_key ||= File.open(file_path).read.chomp
+  rescue
+    raise "Google API code not found! Please add a file called google_api.key with Guru-SP api key to the project root"
   end
 end
