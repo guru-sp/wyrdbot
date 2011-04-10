@@ -40,7 +40,7 @@ class SimpleIrcBot
       if msg.match(/:([^!]+)!.*PRIVMSG ##{@channel} :(.*)$/)
         nick, content = $~[1], $~[2]
 
-        if content.match(/^!(.*)\s+(.*)\n?$/)
+        if content.match(/^!([^\s]*)\s+(.*)\n?$/)
           target, query = $~[1], $~[2]
 
           case target
