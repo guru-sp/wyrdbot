@@ -63,9 +63,9 @@ class SimpleIrcBot
   def try_to_translate(target, query)
     wrong_format = "Ow, usa o formato: t-idioma1-idioma2. #fikdik"
     begin
-			target =~ /^t-(..)-(..)/ ?  translate($~[1], $~[2], query) : wrong_format
+			target =~ /^t-(..)-(..)/ ? translate($~[1], $~[2], query) : wrong_format
 		rescue
-			"Não conheço o idioma que você pediu" 
+			"Não conheço o idioma que você pediu"
 		end
   end
 
