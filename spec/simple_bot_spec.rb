@@ -34,7 +34,7 @@ describe "SimpleIrcBot" do
   context "when trying to translate" do
     it "should return a message of wrong format for a invalid format" do
       message = subject.try_to_translate("t-asfd^asdf", "hell")
-      message.should eql("Ow, usa o formato: t-ligua1-lingua2. #fikdik")
+      message.should eql("Ow, usa o formato: t-idioma1-idioma2. #fikdik")
     end
 
     it "should return the translation using the correct format" do
