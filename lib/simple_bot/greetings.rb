@@ -1,5 +1,9 @@
 # encoding: utf-8
 module Greetings
+  def greet_phrases
+    @greets ||= YAML.load_file(File.expand_path(File.dirname(__FILE__))+"/../../speak.yml")
+  end
+
   def day_part
     cur_hour = Time.now.hour
     return :morning if cur_hour >= 5 and cur_hour < 12
@@ -9,33 +13,15 @@ module Greetings
 
   def greet(greeting, nick)
     case greeting
-    when /[Bb]om [Dd]ia/
-      case day_part
-      when :morning
-        "Bom dia, #{nick}!"
-      when :afternoon
-        "Boa tarde, #{nick}. Ainda não almoçou? São #{Time.now.strftime("%H:%M")}"
-      when :night
-        "Boa noite, #{nick}! Acabou de acordar? O dia já acabou."
-      end
-    when /[Bb]oa [Tt]arde/
-      case day_part
-      when :morning
-        "Bom dia, #{nick}! Você está adiantado."
-      when :afternoon
-        "Boa tarde, #{nick}!"
-      when :night
-        "Boa noite, #{nick}! Já escureceu. São #{Time.now.strftime("%H:%M")}."
-      end
-    when /[Bb]oa [Nn]oite/
-      case day_part
-      when :morning
-        "Bom dia, #{nick}! Quanta pressa. O dia acabou de começar."
-      when :afternoon
-        "Boa tarde, #{nick}. Ainda não escureceu. São #{Time.now.strftime("%H:%M")}."
-      when :night
-        "Boa noite, #{nick}!"
-      end
+    when /[Bb]om [Dd]ia/   then say_greet_for(:good_morning, nick)
+    when /[Bb]oa [Tt]arde/ then say_greet_for(:good_afternoon, nick)
+    when /[Bb]oa [Nn]oite/ then say_greet_for(:good_evening, nick)
     end
+  end
+
+  module_function
+  def say_greet_for(asking_message, nick)
+    phrase = greet_phrases["greet"][asking_message.to_s][day_part.to_s]
+    sprintf(phrase, {:nick => nick, :hours => Time.now.strftime("%H:%M")})
   end
 end

@@ -1,0 +1,13 @@
+greet:
+  good_morning:
+    morning: "Bom dia, %{nick}!"
+    afternoon: "Boa tarde, %{nick}. Ainda não almoçou? São %{hours}"
+    night: "Boa noite, %{nick}! Acabou de acordar? O dia já acabou."
+  good_afternoon:
+    morning: "Bom dia, %{nick}! Você está adiantado."
+    afternoon: "Boa tarde, %{nick}!"
+    night: "Boa noite, %{nick}! Já escureceu. São %{hours}."
+  good_evening:
+    morning: "Bom dia, %{nick}! Quanta pressa. O dia acabou de começar."
+    afternoon: "Boa tarde, %{nick}. Ainda não escureceu. São %{hours}."
+    night: "Boa noite, %{nick}!"
