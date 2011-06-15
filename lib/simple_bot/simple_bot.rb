@@ -40,23 +40,41 @@ class SimpleIrcBot
       if msg.match(/:([^!]+)!.*PRIVMSG ##{@channel} :(.*)$/)
         nick, content = $~[1], $~[2]
 
-        if content.match(/^!([^\s]*)\s+(.*)\n?$/)
+        if content.match(/^!([^\s]*)\s+(.*)(\r?)(\n?)$/)
           target, query = $~[1], $~[2]
 
           case target
-          when 'google' then say_to_chan(google_search(query))
-          when 'doc' then say_to_chan("Documentação: #{query}")
-          when 'dolar' then say_to_chan(dolar_to_real)
-          when /^t/ then say_to_chan(try_to_translate(target, query))
-          else
-            say_to_chan("Se você pedir direito, talvez eu te ajude!")
+            when 'google' then say_to_chan(google_search(query))
+            when 'doc' then say_to_chan("Documentação: #{query}")
+            when 'dolar' then say_to_chan(dolar_to_real)
+            when /^t/ then say_to_chan(try_to_translate(target, query))
+            else
+              say_to_chan("Se você pedir direito, talvez eu te ajude!")
           end
           next
+        elsif content.match(/^wyrd,([^\s]*)\s+(.*)\n?$/)
+          target, query = $~[1], $~[2]
+          execute_query(query, nick)
+        elsif content.match(/^(.*)wyrd(.*)\n?$/)
+          say_to_chan('Oi?')
         end
 
         greeting = greet(content, nick)
         say_to_chan(greeting) if greeting
       end
+    end
+  end
+
+  def execute_query(query, nick)
+    puts query.bytes.to_a.inspect
+    query.match(/^(.*)\r$/)
+    puts $~.to_a
+    case $~[1]
+      when 'teste', 'teste\r'
+        say_to_chan("Tudo ok por aqui, #{nick}")
+      else
+        puts "-> #{query} <-"
+        say_to_chan("#{nick}: sei lá")
     end
   end
 
@@ -74,3 +92,4 @@ class SimpleIrcBot
     say 'QUIT'
   end
 end
+
