@@ -52,9 +52,9 @@ class SimpleIrcBot
               say_to_chan("Se você pedir direito, talvez eu te ajude!")
           end
           next
-        elsif content.match(/^wyrd,([^\s]*)\s+(.*)\n?$/)
+        elsif content.match(/^wyrd,([^\s]*)\s+(.*)\n?$/) || content.match(/^wyrd:([^\s]*)\s+(.*)\n?$/)
           target, query = $~[1], $~[2]
-          execute_query(query, nick)
+          execute_query(query.chop, nick)
         elsif content.match(/^(.*)wyrd(.*)\n?$/)
           say_to_chan('Oi?')
         end
@@ -66,14 +66,18 @@ class SimpleIrcBot
   end
 
   def execute_query(query, nick)
+    query.match(/^(.*)/)
+    query = $~[1]
     puts query.bytes.to_a.inspect
-    query.match(/^(.*)\r$/)
-    puts $~.to_a
-    case $~[1]
-      when 'teste', 'teste\r'
-        say_to_chan("Tudo ok por aqui, #{nick}")
+    case query
+      when 'teste'
+        say_to_chan "Tudo ok por aqui, #{nick}"
+      when 'horas'
+        say_to_chan "Agora são #{Time.now.strftime('%H:%M')}, #{nick}"
+      when 'memoria', 'memória'
+        say_to_chan "Ainda tenho #{%x(free -m).split(' ')[9]}MB livres, #{nick}"
       else
-        puts "-> #{query} <-"
+        puts query
         say_to_chan("#{nick}: sei lá")
     end
   end
