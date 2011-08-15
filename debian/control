@@ -1,0 +1,13 @@
+Source: wyrd
+Section: web
+Priority: extra
+Maintainer: PotHix <pothix@pothix.com>
+Build-Depends: libxml2-dev, libxslt1-dev, libxslt1.1
+Standards-Version: 1.0
+Homepage: http://www.locaweb.com.br
+
+Package: wyrd
+Architecture: any
+Depends: libxslt1.1, ruby1.9.1,  libxml2-dev, libxslt1-dev, libxslt1.1
+Description: Guru-SP IRC bot
+ A simple bot to help in guru-sp irc channel
