@@ -16,11 +16,11 @@ RETVAL=0
 start() {
     echo "Starting: $NAME."
     cd $APP_DIR
-    bundle exec ruby bin/bot.rb 2>&1 >> /var/log/wyrd.log &
+    bundle exec ruby bin/bot.rb start
 }
 
 stop() {
-    pkill ruby
+    bundle exec ruby bin/bot.rb stop
 }
 
 case "$1" in
