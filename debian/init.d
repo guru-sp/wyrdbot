@@ -15,12 +15,11 @@ RETVAL=0
 
 start() {
     echo "Starting: $NAME."
-    cd $APP_DIR
-    su wyrd -c "bundle exec ruby bin/bot.rb start"
+    su - wyrd -c "cd $APP_DIR && bundle exec ruby bin/bot.rb start"
 }
 
 stop() {
-    su wyrd -c "bundle exec ruby bin/bot.rb stop"
+    su - wyrd -c "cd $APP_DIR && bundle exec ruby bin/bot.rb stop"
 }
 
 case "$1" in
