@@ -20,6 +20,10 @@ set -e
 
 case "$1" in
     configure)
+	if [ ! -e /usr/lib/libruby.so.1.9 ]
+	then
+			ln -s /usr/lib/libruby-1.9.1.so.1.9.1 /usr/lib/libruby.so.1.9
+		fi
     ;;
     abort-upgrade|abort-remove|abort-deconfigure)
     ;;

@@ -11,13 +11,11 @@ build-stamp:
 	# Add here commands to compile the package.
 	#$(MAKE)
 
-	touch build-stamp
 	gem install bundler
 
 clean:
 	dh_testdir
 	dh_testroot
-	rm -f build-stamp
 
 	# Add here commands to clean up after the build process.
 	#$(MAKE) clean
@@ -30,10 +28,14 @@ install: build
 	dh_prep
 	dh_installdirs
 
-	bundle install --deployment
+	bundle install --deployment --without="development test"
 	mkdir -p $(DEST)/bin
 
+	cp google_api.key.example $(DEST)/google_api.key
+	cp speak.yml $(DEST)
+	cp Gemfile* $(DEST)
 	cp bin/bot.rb $(DEST)/bin/bot.rb
+	cp -r .bundle* $(DEST)
 	cp -r lib $(DEST)/
 	cp -r vendor $(DEST)/
 

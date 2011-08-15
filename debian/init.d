@@ -16,7 +16,7 @@ RETVAL=0
 start() {
     echo "Starting: $NAME."
     cd $APP_DIR
-    ruby bin/bot.rb
+    bundle exec ruby bin/bot.rb
 }
 
 stop() {
