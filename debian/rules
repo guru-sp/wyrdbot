@@ -31,7 +31,7 @@ install: build
 	bundle install --deployment --without="development test"
 	mkdir -p $(DEST)/bin
 
-	cp google_api.key.example $(DEST)/google_api.key
+	cp google_api.key $(DEST)
 	cp speak.yml $(DEST)
 	cp Gemfile* $(DEST)
 	cp bin/bot.rb $(DEST)/bin/bot.rb
