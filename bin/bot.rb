@@ -7,4 +7,3 @@ bot = SimpleIrcBot.new("irc.freenode.net", 6667, 'wyrd-test')
 trap("INT"){ bot.quit }
 
 bot.run
-
