@@ -52,11 +52,9 @@ class SimpleIrcBot
               say_to_chan("Se você pedir direito, talvez eu te ajude!")
           end
           next
-        elsif content.match(/^wyrd,([^\s]*)\s+(.*)\n?$/) || content.match(/^wyrd:([^\s]*)\s+(.*)\n?$/)
+        elsif content.match(/^wyrd[,:]([^\s]*)\s+(.*)\n?$/)
           target, query = $~[1], $~[2]
           execute_query(query.chop, nick)
-        elsif content.match(/^(.*)wyrd(.*)\n?$/)
-          say_to_chan('Oi?')
         end
 
         greeting = greet(content, nick)
