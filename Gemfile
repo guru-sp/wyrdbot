@@ -6,5 +6,5 @@ gem "json", :platforms => [:mri_18, :ruby_18]
 gem "daemons"
 
 group :development, :test do
-  gem 'rspec'
+  gem "rspec"
 end
