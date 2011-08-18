@@ -29,35 +29,39 @@ class SimpleIrcBot
 
   def run
     until @socket.eof? do
-      msg = @socket.gets
+      message_control(@socket, @socket.gets)
+    end
+  end
 
-      if msg.match(/^PING :(.*)$/)
-        say "PONG #{$~[1]}"
-        $stderr.write(msg)
-        next
+  def message_control(socket, full_message)
+    if full_message.match(/^PING :(.*)$/)
+      say "PONG #{$~[1]}"
+      $stderr.write(full_message)
+      return
+    end
+
+    if full_message.match(/:([^!]+)!.*PRIVMSG ##{@channel} :(.*)$/)
+      nick, content = $~[1], $~[2]
+
+      if content.match(/^!([^\s?]*)\s+(.*)(\r?)(\n?)$/)
+        target, query = $~[1], $~[2]
+
+        case target
+          when 'google' then say_to_chan(google_search(query))
+          when 'doc' then say_to_chan("Documentação: #{query}")
+          when 'dolar' then say_to_chan(dolar_to_real)
+          when /^t/ then say_to_chan(try_to_translate(target, query))
+          else
+            say_to_chan("Ow, isso ae ainda não está implementado...Pull request!!")
+        end
+        return
+      elsif content.match(/^wyrd[,:]([^\s]*)\s+(.*)\n?$/)
+        target, query = $~[1], $~[2]
+        execute_query(query.chop, nick)
       end
 
-      if msg.match(/:([^!]+)!.*PRIVMSG ##{@channel} :(.*)$/)
-        nick, content = $~[1], $~[2]
-
-        if content.match(/^!([^\s?]*)\s+(.*)(\r?)(\n?)$/)
-          target, query = $~[1], $~[2]
-
-          case target
-            when 'google' then say_to_chan(google_search(query))
-            when 'doc' then say_to_chan("Documentação: #{query}")
-            when 'dolar' then say_to_chan(dolar_to_real)
-            when /^t/ then say_to_chan(try_to_translate(target, query))
-            else
-              say_to_chan("Ow, isso ae ainda não está implementado...Pull request!!")
-          end
-          next
-        elsif content.match(/^wyrd[,:]([^\s]*)\s+(.*)\n?$/)
-          target, query = $~[1], $~[2]
-          execute_query(query.chop, nick)
-        end
-
-        say_to_chan(greeting) if greet(content, nick)
+      if is_a_greet?(content)
+        say_to_chan(greet(content, nick))
       end
     end
   end

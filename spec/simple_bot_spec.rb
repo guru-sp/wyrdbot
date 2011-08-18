@@ -6,19 +6,14 @@ describe "SimpleIrcBot" do
 
   before do
     @socket = mock
-    TCPSocket.should_receive(:open).and_return(@socket)
+    TCPSocket.stub(:open).and_return(@socket)
 
     nick = "NICK #{NICK}"
     user = "USER #{NICK} 0 * #{NICK.capitalize}"
     join = "JOIN ##{CHANNEL}"
 
-    $stdout.should_receive(:write).with("#{nick}\n")
-    $stdout.should_receive(:write).with("#{user}\n")
-    $stdout.should_receive(:write).with("#{join}\n")
-
-    @socket.should_receive(:puts).with(nick)
-    @socket.should_receive(:puts).with(user)
-    @socket.should_receive(:puts).with(join)
+    $stdout.stub(:write)
+    @socket.stub(:puts)
   end
 
   subject { SimpleIrcBot.new("irc.freenode.net", 6667, CHANNEL, NICK)}
@@ -29,6 +24,11 @@ describe "SimpleIrcBot" do
     $stdout.should_receive(:write).with("#{message}\n")
     @socket.should_receive(:puts).with(message)
     subject.say(message)
+  end
+
+  it "should greet for a good morning message" do
+    subject.should_receive(:greet).with("Bom dia galera", "PotHix ")
+    subject.message_control(@socket, ":PotHix ! PRIVMSG ##{CHANNEL} :Bom dia galera")
   end
 
   context "when trying to translate" do

@@ -19,6 +19,12 @@ module Greetings
     end
   end
 
+  def is_a_greet?(greeting)
+    greeting.match(/[Bb]om [Dd]ia/) ||
+    greeting.match(/[Bb]oa [Tt]arde/) ||
+    greeting.match(/[Bb]oa [Nn]oite/)
+  end
+
   module_function
   def say_greet_for(asking_message, nick)
     phrase = greet_phrases["greet"][asking_message.to_s][day_part.to_s]
