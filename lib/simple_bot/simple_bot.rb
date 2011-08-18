@@ -45,6 +45,7 @@ class SimpleIrcBot
         target, query = $~[1], $~[2]
 
         case target
+          when 'add_quote' then add_quote(query)
           when 'google' then say_to_chan(google_search(query))
           when 'doc' then say_to_chan("Documentação: #{query}")
           when 'dolar' then say_to_chan(dolar_to_real)
@@ -89,5 +90,12 @@ class SimpleIrcBot
   def quit
     say "PART ##{@channel} :Saindo!"
     say 'QUIT'
+  end
+
+  def add_quote(quote)
+    quotes_path = File.expand_path(File.dirname(__FILE__))+"/../../speak/quotes.yml"
+    @quotes_file ||= YAML.load_file(quotes_path)
+    @quotes_file[:quotes] << quote
+    File.open(quotes_path, "w"){|f| YAML.dump(@quotes_file, f)}
   end
 end

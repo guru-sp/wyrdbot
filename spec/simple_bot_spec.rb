@@ -31,6 +31,10 @@ describe "SimpleIrcBot" do
     subject.message_control(@socket, ":PotHix ! PRIVMSG ##{CHANNEL} :Bom dia galera")
   end
 
+  it "should add a new quote to the quotes file" do
+    subject.add_quote("I'm testing if this thing works...")
+  end
+
   context "when trying to translate" do
     it "should return a message of wrong format for a invalid format" do
       message = subject.try_to_translate("t-asfd^asdf", "hell")
