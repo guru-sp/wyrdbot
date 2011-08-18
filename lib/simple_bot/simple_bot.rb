@@ -65,14 +65,14 @@ class SimpleIrcBot
   def execute_query(query, nick)
     query.match(/^(.*)/)
     query = $~[1]
-    puts query.bytes.to_a.inspect
     case query
       when 'teste'
         say_to_chan "Tudo ok por aqui, #{nick}"
       when 'memoria', 'memória'
         say_to_chan "Ainda tenho #{%x(free -m).split(' ')[9]}MB livres, #{nick}"
+      when 'help'
+        say_to_chan "Respondo a memoria e teste, e to assistindo algumas paradas com exclamação, como !google, !doc, !dolar, e traduções com !t-en-pt por exemplo."
       else
-        puts query
         say_to_chan("#{nick}: sei lá")
     end
   end
