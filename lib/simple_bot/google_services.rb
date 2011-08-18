@@ -1,6 +1,4 @@
 # encoding: utf-8
-require "open-uri"
-require "json"
 
 module GoogleServices
   G_SITE = 'http://www.google.com.br'

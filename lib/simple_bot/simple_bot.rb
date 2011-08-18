@@ -3,8 +3,6 @@
 # Original code by Kevin Glowacz
 # found in http://github.com/kjg/simpleircbot
 
-require 'socket'
-
 class SimpleIrcBot
   include GoogleServices
   include Utils

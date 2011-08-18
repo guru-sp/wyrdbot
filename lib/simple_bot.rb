@@ -1,5 +1,8 @@
 # encoding: utf-8
 require "yaml"
+require "socket"
+require "open-uri"
+require "json"
 
 require "simple_bot/google_services"
 require "simple_bot/greetings"
