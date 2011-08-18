@@ -40,7 +40,7 @@ class SimpleIrcBot
       if msg.match(/:([^!]+)!.*PRIVMSG ##{@channel} :(.*)$/)
         nick, content = $~[1], $~[2]
 
-        if content.match(/^!([^\s]*)\s+(.*)(\r?)(\n?)$/)
+        if content.match(/^!([^\s?]*)\s+(.*)(\r?)(\n?)$/)
           target, query = $~[1], $~[2]
 
           case target
@@ -70,8 +70,6 @@ class SimpleIrcBot
     case query
       when 'teste'
         say_to_chan "Tudo ok por aqui, #{nick}"
-      when 'horas'
-        say_to_chan "Agora são #{Time.now.strftime('%H:%M')}, #{nick}"
       when 'memoria', 'memória'
         say_to_chan "Ainda tenho #{%x(free -m).split(' ')[9]}MB livres, #{nick}"
       else
