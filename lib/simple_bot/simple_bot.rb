@@ -57,8 +57,7 @@ class SimpleIrcBot
           execute_query(query.chop, nick)
         end
 
-        greeting = greet(content, nick)
-        say_to_chan(greeting) if greeting
+        say_to_chan(greeting) if greet(content, nick)
       end
     end
   end
