@@ -30,9 +30,10 @@ install: build
 
 	bundle install --deployment --without="development test"
 	mkdir -p $(DEST)/bin
+	mkdir -p $(DEST)/speak
 
 	cp google_api.key $(DEST)
-	cp speak.yml $(DEST)
+	cp speak/greetings.yml $(DEST)/speak/
 	cp Gemfile* $(DEST)
 	cp bin/bot.rb $(DEST)/bin/bot.rb
 	cp -r .bundle* $(DEST)

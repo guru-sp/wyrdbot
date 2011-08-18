@@ -1,7 +1,7 @@
 # encoding: utf-8
 module Greetings
   def greet_phrases
-    @greets ||= YAML.load_file(File.expand_path(File.dirname(__FILE__))+"/../../speak.yml")
+    @greets ||= YAML.load_file(File.expand_path(File.dirname(__FILE__))+"/../../speak/greetings.yml")
   end
 
   def day_part
