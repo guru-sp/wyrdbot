@@ -58,9 +58,7 @@ class SimpleIrcBot
       elsif content.match(/^wyrd[,:]([^\s]*)\s+(.*)\n?$/)
         target, query = $~[1], $~[2]
         execute_query(query.chop, nick)
-      end
-
-      if is_a_greet?(content)
+      elsif is_a_greet?(content)
         say_to_chan(greet(content, nick))
       end
     end

@@ -23,4 +23,7 @@ task :deploy => [:clean] do |t|
   %x(ssh #{LOGIN_USER}@#{WYRD_SERVER} 'dpkg -i wyrd*')
 
   puts "[wyrd] Installation done! \\,,/"
+
+  # Removing bundler configurations in development
+  %x(rm -rf .bundle)
 end
