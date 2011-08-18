@@ -49,7 +49,7 @@ class SimpleIrcBot
             when 'dolar' then say_to_chan(dolar_to_real)
             when /^t/ then say_to_chan(try_to_translate(target, query))
             else
-              say_to_chan("Se você pedir direito, talvez eu te ajude!")
+              say_to_chan("Ow, isso ae ainda não está implementado...Pull request!!")
           end
           next
         elsif content.match(/^wyrd[,:]([^\s]*)\s+(.*)\n?$/)
