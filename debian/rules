@@ -34,6 +34,7 @@ install: build
 
 	cp google_api.key $(DEST)
 	cp speak/greetings.yml $(DEST)/speak/
+	cp speak/quotes.yml.example $(DEST)/speak/
 	cp Gemfile* $(DEST)
 	cp bin/bot.rb $(DEST)/bin/bot.rb
 	cp -r .bundle* $(DEST)
