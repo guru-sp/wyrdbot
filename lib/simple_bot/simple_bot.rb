@@ -5,12 +5,14 @@
 
 class SimpleIrcBot
   QUOTES_PATH = File.expand_path(File.dirname(__FILE__))+"/../../speak/quotes.yml"
+  LOG_PATH = File.expand_path(File.dirname(__FILE__))+"/../../log/wyrd.log"
 
   include GoogleServices
   include Utils
   include Greetings
 
   def initialize(server, port, channel, nick = 'wyrd')
+    @logger = Logger.new(LOG_PATH)
     @channel = channel
     @socket = TCPSocket.open(server, port)
     say "NICK #{nick}"
