@@ -11,8 +11,6 @@ describe "SimpleIrcBot" do
     nick = "NICK #{NICK}"
     user = "USER #{NICK} 0 * #{NICK.capitalize}"
     join = "JOIN ##{CHANNEL}"
-
-    $stdout.stub(:write)
     @socket.stub(:puts)
   end
 
@@ -21,7 +19,6 @@ describe "SimpleIrcBot" do
   it "should post on irc channel and write a log" do
     message = "Yes! This bot is really awesome!"
 
-    $stdout.should_receive(:write).with("#{message}\n")
     @socket.should_receive(:puts).with(message)
     subject.say(message)
   end
@@ -31,8 +28,25 @@ describe "SimpleIrcBot" do
     subject.message_control(@socket, ":PotHix ! PRIVMSG ##{CHANNEL} :Bom dia galera")
   end
 
-  it "should add a new quote to the quotes file" do
-    subject.add_quote("I'm testing if this thing works...")
+  context "when retrieving quotes" do
+    let!(:quotes_file){ YAML.load_file(File.expand_path(File.dirname(__FILE__))+"/../speak/quotes.yml") }
+
+    it "should return a random when using the !quote command" do
+      subject.should_receive(:quote)
+      subject.message_control(@socket, ":PotHix ! PRIVMSG ##{CHANNEL} :!quote")
+    end
+
+    it "should add a new quote to the quotes file" do
+      message = "I'm testing if this thing works..."
+      subject.add_quote(message)
+      quotes_file[:quotes][quotes_file[:quotes].size - 1].should == message
+    end
+
+    it "should return a random quote" do
+      not_so_random_number = 0
+      subject.should_receive(:rand).and_return(not_so_random_number)
+      subject.quote.should quotes_file[not_so_random_number]
+    end
   end
 
   context "when trying to translate" do

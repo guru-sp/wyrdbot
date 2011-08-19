@@ -4,6 +4,8 @@
 # found in http://github.com/kjg/simpleircbot
 
 class SimpleIrcBot
+  QUOTES_PATH = File.expand_path(File.dirname(__FILE__))+"/../../speak/quotes.yml"
+
   include GoogleServices
   include Utils
   include Greetings
@@ -17,7 +19,6 @@ class SimpleIrcBot
   end
 
   def say(msg)
-    $stdout.write(msg + "\n")
     @socket.puts msg
   end
 
@@ -41,11 +42,12 @@ class SimpleIrcBot
     if full_message.match(/:([^!]+)!.*PRIVMSG ##{@channel} :(.*)$/)
       nick, content = $~[1], $~[2]
 
-      if content.match(/^!([^\s?]*)\s+(.*)(\r?)(\n?)$/)
+      if content.match(/^!([^\s?]*)\s?+(.*)?(\r?|\n?)$/)
         target, query = $~[1], $~[2]
 
         case target
           when 'add_quote' then add_quote(query)
+          when 'quote' then say_to_chan(quote)
           when 'google' then say_to_chan(google_search(query))
           when 'doc' then say_to_chan("Documentação: #{query}")
           when 'dolar' then say_to_chan(dolar_to_real)
@@ -92,10 +94,15 @@ class SimpleIrcBot
     say 'QUIT'
   end
 
+  #FIXME: refactor these two methods to a class caching the yaml file
   def add_quote(quote)
-    quotes_path = File.expand_path(File.dirname(__FILE__))+"/../../speak/quotes.yml"
-    @quotes_file ||= YAML.load_file(quotes_path)
+    @quotes_file ||= YAML.load_file(QUOTES_PATH)
     @quotes_file[:quotes] << quote
-    File.open(quotes_path, "w"){|f| YAML.dump(@quotes_file, f)}
+    File.open(QUOTES_PATH, "w"){|f| YAML.dump(@quotes_file, f)}
+  end
+
+  def quote
+    @quotes_file ||= YAML.load_file(QUOTES_PATH)
+    @quotes_file[:quotes][rand(@quotes_file[:quotes].size)]
   end
 end
