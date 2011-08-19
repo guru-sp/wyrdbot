@@ -1,5 +1,4 @@
 # encoding: utf-8
-
 module GoogleServices
   G_SITE = 'http://www.google.com.br'
   G_PATH = '/search'
