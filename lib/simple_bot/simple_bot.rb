@@ -96,13 +96,13 @@ class SimpleIrcBot
 
   #FIXME: refactor these two methods to a class caching the yaml file
   def add_quote(quote)
-    @quotes_file ||= YAML.load_file(QUOTES_PATH)
-    @quotes_file[:quotes] << quote
-    File.open(QUOTES_PATH, "w"){|f| YAML.dump(@quotes_file, f)}
+    quotes_file = YAML.load_file(QUOTES_PATH)
+    quotes_file[:quotes] << quote
+    File.open(QUOTES_PATH, "w"){|f| YAML.dump(quotes_file, f)}
   end
 
   def quote
-    @quotes_file ||= YAML.load_file(QUOTES_PATH)
-    @quotes_file[:quotes][rand(@quotes_file[:quotes].size)]
+    quotes_file = YAML.load_file(QUOTES_PATH)
+    quotes_file[:quotes][rand(quotes_file[:quotes].size)]
   end
 end
