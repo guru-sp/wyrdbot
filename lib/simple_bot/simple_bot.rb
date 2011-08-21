@@ -4,7 +4,6 @@
 # found in http://github.com/kjg/simpleircbot
 
 class SimpleIrcBot
-  QUOTES_PATH = File.expand_path(File.dirname(__FILE__))+"/../../speak/quotes.yml"
   LOG_PATH = File.expand_path(File.dirname(__FILE__))+"/../../log/wyrd.log"
 
   include GoogleServices
@@ -48,8 +47,12 @@ class SimpleIrcBot
         target, query = $~[1], $~[2]
 
         case target
-          when 'add_quote' then say_to_chan(add_quote(query))
-          when 'quote' then say_to_chan(quote)
+          when 'add_quote'
+            quote = Quote.new(query)
+            quote.add!
+            say_to_chan("Boa! Seu quote foi adicionado com sucesso! \\o/")
+          when 'quote'
+            say_to_chan(Quote.random)
           when 'google' then say_to_chan(google_search(query))
           when 'doc' then say_to_chan("Documentação: #{query}")
           when 'dolar' then say_to_chan(dolar_to_real)
@@ -94,18 +97,5 @@ class SimpleIrcBot
   def quit
     say "PART ##{@channel} :Saindo!"
     say 'QUIT'
-  end
-
-  #FIXME: refactor these two methods to a class caching the yaml file
-  def add_quote(quote)
-    quotes_file = YAML.load_file(QUOTES_PATH)
-    quotes_file[:quotes] << quote
-    File.open(QUOTES_PATH, "w"){|f| YAML.dump(quotes_file, f)}
-    "Boa! Seu quote foi adicionado com sucesso! \o/"
-  end
-
-  def quote
-    quotes_file = YAML.load_file(QUOTES_PATH)
-    quotes_file[:quotes][rand(quotes_file[:quotes].size)]
   end
 end
