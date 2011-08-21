@@ -1,4 +1,6 @@
 # encoding: utf-8
+require "nokogiri"
+
 class Google
   G_SITE = 'http://www.google.com.br'
   G_PATH = '/search'

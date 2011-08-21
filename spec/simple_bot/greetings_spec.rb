@@ -36,7 +36,7 @@ describe "Greetings" do
   context "when greeting" do
     let(:hours){ "10:10" }
     let(:nick){ "Bill Gates" }
-    let(:greet_responses){ YAML.load_file(File.expand_path(File.dirname(__FILE__))+"/../speak/greetings.yml") }
+    let(:greet_responses){ YAML.load_file(File.expand_path(File.dirname(__FILE__))+"/../../speak/greetings.yml") }
 
     before { Time.stub_chain(:now, :strftime).and_return(hours)}
 

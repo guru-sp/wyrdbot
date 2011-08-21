@@ -52,7 +52,7 @@ describe "SimpleIrcBot" do
     end
   end
 
-  context "when trying to translate" do
+  context "using google services" do
     it "should call google translate method with the given query" do
       Google.should_not_receive(:translate)
       subject.message_control(@socket, ":PotHix ! PRIVMSG ##{CHANNEL} :!t-asdf^asdf hell")
@@ -62,6 +62,11 @@ describe "SimpleIrcBot" do
       Google.should_receive(:translate).with("en", "pt", "hell").and_return("inferno")
       subject.should_receive(:say_to_chan).with("inferno")
       subject.message_control(@socket, ":PotHix ! PRIVMSG ##{CHANNEL} :!t-en-pt hell")
+    end
+
+    it "should search on google for a given query" do
+      Google.should_receive(:search).with("pothix")
+      subject.message_control(@socket, ":PotHix ! PRIVMSG ##{CHANNEL} :!google pothix")
     end
   end
 end
