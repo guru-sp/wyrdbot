@@ -48,7 +48,7 @@ class SimpleIrcBot
         target, query = $~[1], $~[2]
 
         case target
-          when 'add_quote' then add_quote(query)
+          when 'add_quote' then say_to_chan(add_quote(query))
           when 'quote' then say_to_chan(quote)
           when 'google' then say_to_chan(google_search(query))
           when 'doc' then say_to_chan("Documentação: #{query}")
@@ -101,6 +101,7 @@ class SimpleIrcBot
     quotes_file = YAML.load_file(QUOTES_PATH)
     quotes_file[:quotes] << quote
     File.open(QUOTES_PATH, "w"){|f| YAML.dump(quotes_file, f)}
+    "Boa! Seu quote foi adicionado com sucesso! \o/"
   end
 
   def quote

@@ -47,6 +47,11 @@ describe "SimpleIrcBot" do
       quotes_file[:quotes][quotes_file[:quotes].size - 1].should == message
     end
 
+    it "should print a message after add a new quote to the quotes file" do
+      message = subject.add_quote(message)
+      message.should eql("Boa! Seu quote foi adicionado com sucesso! \o/")
+    end
+
     it "should return a random quote" do
       not_so_random_number = 0
       subject.should_receive(:rand).and_return(not_so_random_number)
