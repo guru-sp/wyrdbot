@@ -1,5 +1,11 @@
+wyrd (0.1.1) stable; urgency=low
+
+  * With quotes
+
+ -- PotHix <pothix@pothix.com>  Sun, 20 Aug 2011 00:00:00 -0300
+
 wyrd (0.1.0) stable; urgency=low
 
   * Initial release
 
- -- PotHix <pothix@pothix.com>  Sun, 14 Mar 2011 00:00:00 -0300
+ -- PotHix <pothix@pothix.com>  Sun, 14 Aug 2011 00:00:00 -0300
