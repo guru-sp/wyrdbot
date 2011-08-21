@@ -53,15 +53,15 @@ describe "SimpleIrcBot" do
   end
 
   context "when trying to translate" do
-    it "should return a message of wrong format for a invalid format" do
-      message = subject.try_to_translate("t-asfd^asdf", "hell")
-      message.should eql("Ow, usa o formato: t-idioma1-idioma2. #fikdik")
+    it "should call google translate method with the given query" do
+      Google.should_not_receive(:translate)
+      subject.message_control(@socket, ":PotHix ! PRIVMSG ##{CHANNEL} :!t-asdf^asdf hell")
     end
 
     it "should return the translation using the correct format" do
-      subject.should_receive(:translate).with("en", "pt", "hell").and_return("inferno")
-      message = subject.try_to_translate("t-en-pt", "hell")
-      message.should eql("inferno")
+      Google.should_receive(:translate).with("en", "pt", "hell").and_return("inferno")
+      subject.should_receive(:say_to_chan).with("inferno")
+      subject.message_control(@socket, ":PotHix ! PRIVMSG ##{CHANNEL} :!t-en-pt hell")
     end
   end
 end

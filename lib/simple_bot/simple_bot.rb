@@ -6,7 +6,6 @@
 class SimpleIrcBot
   LOG_PATH = File.expand_path(File.dirname(__FILE__))+"/../../log/wyrd.log"
 
-  include GoogleServices
   include Utils
   include Greetings
 
@@ -53,10 +52,16 @@ class SimpleIrcBot
             say_to_chan("Boa! Seu quote foi adicionado com sucesso! \\o/")
           when 'quote'
             say_to_chan(Quote.random)
-          when 'google' then say_to_chan(google_search(query))
-          when 'doc' then say_to_chan("Documentação: #{query}")
-          when 'dolar' then say_to_chan(dolar_to_real)
-          when /^t/ then say_to_chan(try_to_translate(target, query))
+          when 'doc'
+            say_to_chan("Documentação: #{query}")
+          when 'dolar'
+            say_to_chan(dolar_to_real)
+          when 'google'
+            say_to_chan(Google.search(query))
+          when /^t/
+            wrong_message = "Ow usa o formato: t-idioma1-idioma2. #fikdik"
+            response = target =~ /^t-(..)-(..)/ ? Google.translate($~[1], $~[2], query) : wrong_message
+            say_to_chan(response)
           else
             say_to_chan("Ow, isso ae ainda não está implementado...Pull request!!")
         end
@@ -82,15 +87,6 @@ class SimpleIrcBot
         say_to_chan "Respondo a memoria e teste, e to assistindo algumas paradas com exclamação, como !google, !doc, !dolar, e traduções com !t-en-pt por exemplo."
       else
         say_to_chan("#{nick}: sei lá")
-    end
-  end
-
-  def try_to_translate(target, query)
-    wrong_format = "Ow, usa o formato: t-idioma1-idioma2. #fikdik"
-    begin
-      target =~ /^t-(..)-(..)/ ? translate($~[1], $~[2], query) : wrong_format
-    rescue
-      "Não conheço o idioma que você pediu"
     end
   end
 
