@@ -5,6 +5,7 @@ require "open-uri"
 require "json"
 require "logger"
 
+require "simple_bot/ed_robot"
 require "simple_bot/google"
 require "simple_bot/greetings"
 require "simple_bot/utils"

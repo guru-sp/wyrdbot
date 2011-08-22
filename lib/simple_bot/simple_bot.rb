@@ -8,6 +8,7 @@ class SimpleIrcBot
 
   include Utils
   include Greetings
+  include EdRobot
 
   attr_accessor :logger
 
@@ -77,7 +78,7 @@ class SimpleIrcBot
             say_to_chan("Ow, isso ae ainda não está implementado...Pull request!!")
         end
         return
-      elsif content.match(/^wyrd[,:]([^\s]*)\s+(.*)\n?$/)
+      elsif content.match(/^#{@nick}[,:]([^\s]*)\s+(.*)\n?$/)
         target, query = $~[1], $~[2]
         execute_query(query.chop, nick)
       elsif is_a_greet?(content)
@@ -89,8 +90,6 @@ class SimpleIrcBot
   end
 
   def execute_query(query, nick)
-    query.match(/^(.*)/)
-    query = $~[1]
     case query
       when 'teste'
         say_to_chan "Tudo ok por aqui, #{nick}"
@@ -99,7 +98,7 @@ class SimpleIrcBot
       when 'help'
         say_to_chan "Respondo a memoria e teste, e to assistindo algumas paradas com exclamação, como !quote, !add_quote, !google, !doc, !dolar, e traduções com !t-en-pt por exemplo."
       else
-        say_to_chan("#{nick}: sei lá")
+        say_to_chan("#{nick}: #{ask_to_ed(query)}")
     end
   end
 
