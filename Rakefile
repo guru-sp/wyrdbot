@@ -27,3 +27,8 @@ task :deploy => [:clean] do |t|
   # Removing bundler configurations in development
   %x(rm -rf .bundle)
 end
+
+task :quotes do |t|
+  puts "[wyrd] Downloading quotes file"
+  %x(scp #{LOGIN_USER}@#{WYRD_SERVER}:/opt/wyrd/speak/quotes.yml speak/quotes.yml)
+end
