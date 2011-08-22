@@ -8,7 +8,7 @@ class SimpleIrcBot
 
   include Utils
   include Greetings
-  include ::EdRobot
+  include EdRobot
 
   attr_accessor :logger
 
