@@ -32,8 +32,8 @@ describe "SimpleIrcBot" do
   context "when retrieving quotes" do
     before do
       @quote_message = "<qmx> Eu amo Ruby 1.9"
-      @mock_quote = Quote.new(@quote_message)
-      Quote.stub(:new).with(@quote_message).and_return(@mock_quote)
+      @mock_quote = SimpleIrcBot::Quote.new(@quote_message)
+      SimpleIrcBot::Quote.stub(:new).with(@quote_message).and_return(@mock_quote)
     end
     it "should call the correct method to add a new quote when calling !add_quote command without mentioning the bot" do
       @mock_quote.should_receive(:add!)
@@ -41,7 +41,7 @@ describe "SimpleIrcBot" do
     end
 
     it "should call the correct show a quote when calling !quote command" do
-      Quote.should_receive(:random)
+      SimpleIrcBot::Quote.should_receive(:random)
       subject.message_control(@socket, ":PotHix ! PRIVMSG ##{CHANNEL} :!quote")
     end
 
@@ -60,18 +60,18 @@ describe "SimpleIrcBot" do
 
   context "using google services" do
     it "should call google translate method with the given query" do
-      Google.should_not_receive(:translate)
+      SimpleIrcBot::Google.should_not_receive(:translate)
       subject.message_control(@socket, ":PotHix ! PRIVMSG ##{CHANNEL} :!t-asdf^asdf hell")
     end
 
     it "should return the translation using the correct format" do
-      Google.should_receive(:translate).with("en", "pt", "hell").and_return("inferno")
+      SimpleIrcBot::Google.should_receive(:translate).with("en", "pt", "hell").and_return("inferno")
       subject.should_receive(:say_to_chan).with("inferno")
       subject.message_control(@socket, ":PotHix ! PRIVMSG ##{CHANNEL} :!t-en-pt hell")
     end
 
     it "should search on google for a given query" do
-      Google.should_receive(:search).with("pothix")
+      SimpleIrcBot::Google.should_receive(:search).with("pothix")
       subject.message_control(@socket, ":PotHix ! PRIVMSG ##{CHANNEL} :!google pothix")
     end
   end

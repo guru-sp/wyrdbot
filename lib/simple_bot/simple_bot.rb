@@ -9,6 +9,8 @@ class SimpleIrcBot
   include Utils
   include Greetings
 
+  attr_accessor :logger
+
   def initialize(server, port, channel, nick = 'wyrd')
     @nick = nick
     @logger = Logger.new(LOG_PATH)
@@ -78,6 +80,8 @@ class SimpleIrcBot
         say_to_chan(greet(content, nick))
       end
     end
+  rescue => e
+    logger.error("Message control for '#{full_message}' failed with error: #{e.message}")
   end
 
   def execute_query(query, nick)

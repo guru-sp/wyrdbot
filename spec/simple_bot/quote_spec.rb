@@ -1,8 +1,8 @@
 # encoding: utf-8
 require "spec_helper"
 
-describe "Quote" do
-  subject { Quote.new("I'm testing if this thing works...") }
+describe "SimpleIrcBot::Quote" do
+  subject { SimpleIrcBot::Quote.new("I'm testing if this thing works...") }
 
   it "should add a new quote to the quotes file" do
     subject.add!

@@ -1,9 +1,9 @@
 # encoding: utf-8
 require "spec_helper"
 
-describe "Greetings" do
+describe "SimpleIrcBot::Greetings" do
   before :all do
-    class Dummy; include Greetings; end
+    class Dummy; include SimpleIrcBot::Greetings; end
   end
 
   subject { Dummy.new }
