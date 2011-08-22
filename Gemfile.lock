@@ -1,8 +1,11 @@
 GEM
   remote: http://rubygems.org/
   specs:
+    crack (0.1.8)
     daemons (1.1.4)
     diff-lcs (1.1.2)
+    httparty (0.7.8)
+      crack (= 0.1.8)
     json (1.5.3)
     nokogiri (1.5.0)
     rspec (2.6.0)
@@ -19,6 +22,7 @@ PLATFORMS
 
 DEPENDENCIES
   daemons
+  httparty
   json
   nokogiri
   rspec
