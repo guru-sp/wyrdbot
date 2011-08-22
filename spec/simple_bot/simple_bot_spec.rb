@@ -35,26 +35,46 @@ describe "SimpleIrcBot" do
       @mock_quote = SimpleIrcBot::Quote.new(@quote_message)
       SimpleIrcBot::Quote.stub(:new).with(@quote_message).and_return(@mock_quote)
     end
-    it "should call the correct method to add a new quote when calling !add_quote command without mentioning the bot" do
-      @mock_quote.should_receive(:add!)
-      subject.message_control(@socket, ":PotHix ! PRIVMSG ##{CHANNEL} :!add_quote #{@quote_message}")
-    end
 
     it "should call the correct show a quote when calling !quote command" do
       SimpleIrcBot::Quote.should_receive(:random)
       subject.message_control(@socket, ":PotHix ! PRIVMSG ##{CHANNEL} :!quote")
     end
 
-    it "should print a message after add a new quote to the quotes file" do
-      @mock_quote.stub(:add!)
-      subject.should_receive(:say_to_chan).with("Boa! Seu quote foi adicionado com sucesso! \\o/")
-      subject.message_control(@socket, ":PotHix ! PRIVMSG ##{CHANNEL} :!add_quote #{@quote_message}")
+    context "when adding a new quote" do
+      it "should call the correct method to add a new quote when calling !add_quote command without mentioning the bot" do
+        @mock_quote.should_receive(:add!)
+        subject.message_control(@socket, ":PotHix ! PRIVMSG ##{CHANNEL} :!add_quote #{@quote_message}")
+      end
+
+      it "should print a message after add a new quote to the quotes file" do
+        @mock_quote.stub(:add!)
+        subject.should_receive(:say_to_chan).with("Boa! Seu quote foi adicionado com sucesso! \\o/")
+        subject.message_control(@socket, ":PotHix ! PRIVMSG ##{CHANNEL} :!add_quote #{@quote_message}")
+      end
+
+      it "should not add the quote if it mentions the bot" do
+        @mock_quote.should_not_receive(:add!)
+        subject.should_receive(:say_to_chan).with("Não sou tão idiota de ficar adicionando quotes que mencionem a mim ;)")
+        subject.message_control(@socket, ":PotHix ! PRIVMSG ##{CHANNEL} :!add_quote o wyrd é um idiota")
+      end
     end
 
-    it "should not add the quote if it mentions the bot" do
-      @mock_quote.should_not_receive(:add!)
-      subject.should_receive(:say_to_chan).with("Não sou tão idiota de ficar adicionando quotes que mencionem a mim ;)")
-      subject.message_control(@socket, ":PotHix ! PRIVMSG ##{CHANNEL} :!add_quote o wyrd é um idiota")
+    context "when retrieving a quote" do
+      it "should call the correct show a quote when calling !quote command" do
+        SimpleIrcBot::Quote.should_receive(:random)
+        subject.message_control(@socket, ":PotHix ! PRIVMSG ##{CHANNEL} :!quote")
+      end
+
+      it "should not call random by user method when a space is passed" do
+        SimpleIrcBot::Quote.should_receive(:random)
+        subject.message_control(@socket, ":PotHix ! PRIVMSG ##{CHANNEL} :!quote ")
+      end
+
+      it "should call the method to return a quote from a specific user" do
+        SimpleIrcBot::Quote.should_receive(:random_by_user).with("qmx")
+        subject.message_control(@socket, ":PotHix ! PRIVMSG ##{CHANNEL} :!quote qmx")
+      end
     end
   end
 

@@ -58,7 +58,11 @@ class SimpleIrcBot
               say_to_chan("Não sou tão idiota de ficar adicionando quotes que mencionem a mim ;)")
             end
           when 'quote'
-            say_to_chan(Quote.random)
+            unless query.empty?
+              say_to_chan(Quote.random_by_user(query))
+            else
+              say_to_chan(Quote.random)
+            end
           when 'doc'
             say_to_chan("Documentação: #{query}")
           when 'dolar'

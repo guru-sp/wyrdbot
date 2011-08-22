@@ -19,6 +19,14 @@ class SimpleIrcBot
       self.file[:quotes][rand(self.file[:quotes].size)]
     end
 
+    def self.random_by_user(query)
+      user = query.split(" ").first
+      user_quotes = self.file[:quotes].select do |quote|
+        quote.match(/<#{user}>/)
+      end
+      user_quotes[rand(user_quotes.size)]
+    end
+
     def self.file
       YAML.load_file(QUOTES_PATH)
     end
