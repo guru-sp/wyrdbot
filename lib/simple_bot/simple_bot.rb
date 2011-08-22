@@ -10,6 +10,7 @@ class SimpleIrcBot
   include Greetings
 
   def initialize(server, port, channel, nick = 'wyrd')
+    @nick = nick
     @logger = Logger.new(LOG_PATH)
     @channel = channel
     @socket = TCPSocket.open(server, port)
@@ -47,9 +48,13 @@ class SimpleIrcBot
 
         case target
           when 'add_quote'
-            quote = Quote.new(query)
-            quote.add!
-            say_to_chan("Boa! Seu quote foi adicionado com sucesso! \\o/")
+            unless query.match(/#{@nick}/)
+              quote = Quote.new(query)
+              quote.add!
+              say_to_chan("Boa! Seu quote foi adicionado com sucesso! \\o/")
+            else
+              say_to_chan("Não sou tão idiota de ficar adicionando quotes que mencionem a mim ;)")
+            end
           when 'quote'
             say_to_chan(Quote.random)
           when 'doc'

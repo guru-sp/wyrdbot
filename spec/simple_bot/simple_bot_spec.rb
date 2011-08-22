@@ -35,7 +35,7 @@ describe "SimpleIrcBot" do
       @mock_quote = Quote.new(@quote_message)
       Quote.stub(:new).with(@quote_message).and_return(@mock_quote)
     end
-    it "should call the correct method to add a new quote when calling !add_quote command" do
+    it "should call the correct method to add a new quote when calling !add_quote command without mentioning the bot" do
       @mock_quote.should_receive(:add!)
       subject.message_control(@socket, ":PotHix ! PRIVMSG ##{CHANNEL} :!add_quote #{@quote_message}")
     end
@@ -49,6 +49,12 @@ describe "SimpleIrcBot" do
       @mock_quote.stub(:add!)
       subject.should_receive(:say_to_chan).with("Boa! Seu quote foi adicionado com sucesso! \\o/")
       subject.message_control(@socket, ":PotHix ! PRIVMSG ##{CHANNEL} :!add_quote #{@quote_message}")
+    end
+
+    it "should not add the quote if it mentions the bot" do
+      @mock_quote.should_not_receive(:add!)
+      subject.should_receive(:say_to_chan).with("Não sou tão idiota de ficar adicionando quotes que mencionem a mim ;)")
+      subject.message_control(@socket, ":PotHix ! PRIVMSG ##{CHANNEL} :!add_quote o wyrd é um idiota")
     end
   end
 
