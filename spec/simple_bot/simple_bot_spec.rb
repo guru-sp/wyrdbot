@@ -95,4 +95,12 @@ describe "SimpleIrcBot" do
       subject.message_control(@socket, ":PotHix ! PRIVMSG ##{CHANNEL} :!google pothix")
     end
   end
+
+  context "in unknown messages (actions)" do
+    it "should ask to Ed" do
+      question = "2 * 2"
+      subject.should_receive(:ask_to_ed).with(question)
+      subject.message_control(@socket, ":PotHix ! PRIVMSG ##{CHANNEL} :#{NICK}: #{question} ")
+    end
+  end
 end
