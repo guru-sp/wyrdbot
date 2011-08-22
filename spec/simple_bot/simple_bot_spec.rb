@@ -15,7 +15,10 @@ describe "SimpleIrcBot" do
     @socket.stub(:puts)
   end
 
-  subject { SimpleIrcBot.new("irc.freenode.net", 6667, CHANNEL, NICK)}
+  subject { 
+    config = YAML.load_file File.join(File.expand_path(File.dirname(__FILE__)), "../config/wyrd.yml")
+    SimpleIrcBot.new(config)
+  }
 
   it "should post on irc channel and write a log" do
     message = "Yes! This bot is really awesome!"

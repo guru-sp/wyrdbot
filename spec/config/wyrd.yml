@@ -1,0 +1,7 @@
+network: 
+    server: irc.freenode.net
+    port: 6667
+    channel: guru-sp
+    
+user:
+    nickname: wyrd
