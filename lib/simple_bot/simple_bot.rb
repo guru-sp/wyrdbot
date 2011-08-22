@@ -50,7 +50,7 @@ class SimpleIrcBot
 
         case target
           when 'add_quote'
-            unless query.match(/#{@nick}/)
+            unless query.downcase.match(/#{@nick.downcase}/)
               quote = Quote.new(query)
               quote.add!
               say_to_chan("Boa! Seu quote foi adicionado com sucesso! \\o/")
