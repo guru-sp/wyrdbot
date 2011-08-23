@@ -31,10 +31,12 @@ install: build
 	bundle install --deployment --without="development test"
 	mkdir -p $(DEST)/bin
 	mkdir -p $(DEST)/speak
+	mkdir -p $(DEST)/config
 
 	cp google_api.key $(DEST)
 	cp speak/greetings.yml $(DEST)/speak/
 	cp speak/quotes.yml.example $(DEST)/speak/
+	cp config/wyrd.yml.example $(DEST)/config/
 	cp Gemfile* $(DEST)
 	cp bin/bot.rb $(DEST)/bin/bot.rb
 	cp -r .bundle* $(DEST)
