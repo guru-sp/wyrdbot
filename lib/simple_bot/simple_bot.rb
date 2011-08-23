@@ -4,21 +4,17 @@
 # found in http://github.com/kjg/simpleircbot
 
 class SimpleIrcBot
-  LOG_PATH = File.expand_path(File.dirname(__FILE__))+"/../../log/wyrd.log"
-
   include Utils
   include Greetings
   include EdRobot
 
-  attr_accessor :logger
-
-  def initialize(server, port, channel, nick = 'wyrd')
-    @nick = nick
-    @logger = Logger.new(LOG_PATH)
-    @channel = channel
-    @socket = TCPSocket.open(server, port)
-    say "NICK #{nick}"
-    say "USER #{nick} 0 * #{nick.capitalize}"
+  def initialize(config)
+    @socket = TCPSocket.open(config["network"]["server"], config["network"]["port"])
+    @channel = config["network"]["channel"]
+    @nick = config["user"]["nickname"]
+    
+    say "NICK #{@nick}"
+    say "USER #{@nick} 0 * #{@nick.capitalize}"
     say "JOIN ##{@channel}"
   end
 
@@ -37,6 +33,8 @@ class SimpleIrcBot
   end
 
   def message_control(socket, full_message)
+    logger.debug(full_message.chomp)
+    
     if full_message.match(/^PING :(.*)$/)
       say "PONG #{$~[1]}"
       $stderr.write(full_message)
