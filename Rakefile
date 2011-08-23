@@ -35,5 +35,5 @@ end
 
 task :quotes => [:backup] do |t|
   puts "[wyrd] Downloading quotes backups"
-  %x(scp #{LOGIN_USER}@#{WYRD_SERVER}:/opt/wyrd/speak/quotes.yml speak/quotes.yml)
+  %x(scp #{LOGIN_USER}@#{WYRD_SERVER}:~/wyrd_quotes.tar.gz speak/)
 end
