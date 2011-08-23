@@ -15,10 +15,15 @@ describe "SimpleIrcBot" do
     @socket.stub(:puts)
   end
 
-  subject { 
+  subject {
     config = YAML.load_file File.join(File.expand_path(File.dirname(__FILE__)), "../config/wyrd.yml")
     SimpleIrcBot.new(config)
   }
+
+  it "should call agendatech to verify the next meeting" do
+    subject.should_receive(:agendatech)
+    subject.message_control(@socket, ":PotHix ! PRIVMSG ##{CHANNEL} :!agendatech")
+  end
 
   it "should post on irc channel and write a log" do
     message = "Yes! This bot is really awesome!"

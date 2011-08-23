@@ -12,7 +12,7 @@ class SimpleIrcBot
     @socket = TCPSocket.open(config["network"]["server"], config["network"]["port"])
     @channel = config["network"]["channel"]
     @nick = config["user"]["nickname"]
-    
+
     say "NICK #{@nick}"
     say "USER #{@nick} 0 * #{@nick.capitalize}"
     say "JOIN ##{@channel}"
@@ -34,7 +34,7 @@ class SimpleIrcBot
 
   def message_control(socket, full_message)
     logger.debug(full_message.chomp)
-    
+
     if full_message.match(/^PING :(.*)$/)
       say "PONG #{$~[1]}"
       $stderr.write(full_message)
@@ -62,6 +62,8 @@ class SimpleIrcBot
             else
               say_to_chan(Quote.random)
             end
+          when 'agendatech'
+            say_to_chan(agendatech)
           when 'doc'
             say_to_chan("Documentação: #{query}")
           when 'dolar'
