@@ -7,6 +7,7 @@ class SimpleIrcBot
   include Utils
   include Greetings
   include EdRobot
+  include Logger
 
   def initialize(config)
     @socket = TCPSocket.open(config["network"]["server"], config["network"]["port"])
@@ -44,7 +45,7 @@ class SimpleIrcBot
     if full_message.match(/:([^!]+)!.*PRIVMSG ##{@channel} :(.*)$/)
       nick, content = $~[1], $~[2]
 
-      if content.match(/^!([^\s?]*)\s?+(.*)?(\r?|\n?)$/)
+      if content.match(/^!([^\s?]*)\s*(.*?)?\s*$/)
         target, query = $~[1], $~[2]
 
         case target
