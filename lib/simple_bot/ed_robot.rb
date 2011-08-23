@@ -19,7 +19,7 @@ class SimpleIrcBot
         }
 
         response = HTTParty.get("http://www.ed.conpet.gov.br/mod_perl/bot_gateway.cgi", options)
-        response.body.chomp
+        response.body.chomp.gsub(/<[^<>]*>/, "")
       end
     rescue Exception => e
       "Sei lá tru"
