@@ -96,7 +96,7 @@ class SimpleIrcBot
       when 'memoria', 'memória'
         say_to_chan "Ainda tenho #{%x(free -m).split(' ')[9]}MB livres, #{nick}"
       when 'help'
-        say_to_chan "Respondo a memoria e teste, e to assistindo algumas paradas com exclamação, como !quote, !add_quote, !google, !doc, !dolar, e traduções com !t-en-pt por exemplo."
+        say_to_chan "Respondo a memoria e teste, e to assistindo algumas paradas com exclamação, como !quote, !add_quote, !google, !doc, !dolar, !agendatech, e traduções com !t-en-pt por exemplo."
       else
         say_to_chan("#{nick}: #{ask_to_ed(query)}")
     end
