@@ -4,17 +4,11 @@
 # found in http://github.com/kjg/simpleircbot
 
 class SimpleIrcBot
-  LOG_PATH = File.expand_path(File.dirname(__FILE__))+"/../../log/wyrd.log"
-
   include Utils
   include Greetings
   include EdRobot
 
-  attr_accessor :logger
-
   def initialize(config)
-    @logger = Logger.new(LOG_PATH)
-    
     @socket = TCPSocket.open(config["network"]["server"], config["network"]["port"])
     @channel = config["network"]["channel"]
     @nick = config["user"]["nickname"]
