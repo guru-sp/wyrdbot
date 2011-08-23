@@ -7,6 +7,16 @@ class SimpleIrcBot
       doc.xpath("//div[@class='cambio']/ul/li[1]/p/span[2]").text
     end
 
+    def agendatech
+      events = JSON.parse(open("http://www.agendatech.com.br/rss/feed.json").read)
+      events.select! do |event|
+        event["evento"]["estado"] == "SP" && event["evento"]["nome"].downcase.match(/guru/)
+      end
+      "O próximo evento está cadastrado para #{events.first["evento"]["data"]}"
+    rescue
+      "Nenhum evento do Guru-SP cadastrado no Agendatech"
+    end
+
     LOG_PATH = File.expand_path(File.dirname(__FILE__))+"/../../log/wyrd.log"
 
     def logger
