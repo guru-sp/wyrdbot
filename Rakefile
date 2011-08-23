@@ -28,7 +28,12 @@ task :deploy => [:clean] do |t|
   %x(rm -rf .bundle)
 end
 
-task :quotes do |t|
-  puts "[wyrd] Downloading quotes file"
+task :backup do |t|
+  puts "[wyrd] Backup quotes"
+  %x(ssh #{LOGIN_USER}@#{WYRD_SERVER} 'tar czvf ~/wyrd_quotes.tar.gz /opt/wyrd/speak/*.yml')
+end
+
+task :quotes => [:backup] do |t|
+  puts "[wyrd] Downloading quotes backups"
   %x(scp #{LOGIN_USER}@#{WYRD_SERVER}:/opt/wyrd/speak/quotes.yml speak/quotes.yml)
 end
