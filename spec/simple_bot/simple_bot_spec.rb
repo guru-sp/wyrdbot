@@ -86,6 +86,23 @@ describe "SimpleIrcBot" do
     end
   end
 
+  context "when using flame war" do
+    it "should call the correct method to enable flame war" do
+      SimpleIrcBot::FlameWar.should_receive(:on!)
+      subject.message_control(@socket, ":PotHix ! PRIVMSG ##{CHANNEL} :!flame on")
+    end
+    
+    it "should call the correct method to disable flame war" do
+      SimpleIrcBot::FlameWar.should_receive(:off!)
+      subject.message_control(@socket, ":PotHix ! PRIVMSG ##{CHANNEL} :!flame off")
+    end
+
+    it "should check for flames if is a simple message" do
+      SimpleIrcBot::FlameWar.should_receive(:flame_on)
+      subject.message_control(@socket, ":PotHix ! PRIVMSG ##{CHANNEL} :ruby sux")
+    end
+  end
+
   context "using google services" do
     it "should call google translate method with the given query" do
       SimpleIrcBot::Google.should_not_receive(:translate)

@@ -63,6 +63,16 @@ class SimpleIrcBot
             else
               say_to_chan(Quote.random)
             end
+          when 'flame'
+            if query == "on"
+              FlameWar.on!
+              say_to_chan("Flame war is on! \\m/")
+            elsif query == "off"
+              FlameWar.off!
+              say_to_chan("Flame war is off! What a fag!")
+            else
+              say_to_chan("Uma flame war só pode ser on ou off, fikdik")
+            end
           when 'agendatech'
             say_to_chan(agendatech)
           when 'doc'
@@ -84,6 +94,8 @@ class SimpleIrcBot
         execute_query(query.chop, nick)
       elsif is_a_greet?(content)
         say_to_chan(greet(content, nick))
+      else
+        say_to_chan(FlameWar.flame_on(content))
       end
     end
   rescue => e
