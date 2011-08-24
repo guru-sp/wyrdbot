@@ -1,18 +1,18 @@
 # encoding: utf-8
 module SimpleIrcBot
-  class Quote
-    QUOTES_PATH = File.expand_path(File.dirname(__FILE__))+"/../../speak/quotes.yml"
+  class Phrase
+    PHRASES_PATH = File.expand_path(File.dirname(__FILE__))+"/../../speak/quotes.yml"
 
-    attr_reader :quote
+    attr_reader :phrase
 
-    def initialize(quote)
-      @quote = quote
+    def initialize(phrase)
+      @phrase = phrase
     end
 
     def add!
-      quotes = self.class.file
-      quotes[:quotes] << quote
-      File.open(QUOTES_PATH, "w"){|f| YAML.dump(quotes, f)}
+      phrases = self.class.file
+      phrases[:quotes] << phrase
+      File.open(PHRASES_PATH, "w"){|f| YAML.dump(phrases, f)}
     end
 
     def self.random
@@ -21,14 +21,14 @@ module SimpleIrcBot
 
     def self.random_by_user(query)
       user = query.split(" ").first
-      user_quotes = self.file[:quotes].select do |quote|
-        quote.match(/<#{user}>/)
+      user_phrases = self.file[:phrases].select do |phrase|
+        phrase.match(/<#{user}>/)
       end
-      user_quotes[rand(user_quotes.size)]
+      user_phrases[rand(user_phrases.size)]
     end
 
     def self.file
-      YAML.load_file(QUOTES_PATH)
+      YAML.load_file(PHRASES_PATH)
     end
   end
 end

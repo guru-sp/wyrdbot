@@ -52,7 +52,7 @@ module SimpleIrcBot
           case target
           when 'add_quote'
             unless query.downcase.match(/#{@nick.downcase}/)
-              quote = Quote.new(query)
+              quote = Phrase.new(query)
               quote.add!
               say_to_chan("Boa! Seu quote foi adicionado com sucesso! \\o/")
             else
@@ -60,9 +60,9 @@ module SimpleIrcBot
             end
           when 'quote'
             unless query.empty?
-              say_to_chan(Quote.random_by_user(query))
+              say_to_chan(Phrase.random_by_user(query))
             else
-              say_to_chan(Quote.random)
+              say_to_chan(Phrase.random)
             end
           when 'flame'
             if query == "on"
