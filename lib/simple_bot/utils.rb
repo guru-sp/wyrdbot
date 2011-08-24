@@ -1,5 +1,5 @@
 # encoding: utf-8
-class SimpleIrcBot
+module SimpleIrcBot
   module Utils
     def dolar_to_real
       url = 'http://economia.uol.com.br/cotacoes/cambio/dolar-comercial-estados-unidos-principal.jhtm'

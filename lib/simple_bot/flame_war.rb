@@ -1,5 +1,5 @@
 # encoding: utf-8
-class SimpleIrcBot
+module SimpleIrcBot
   module FlameWar
     extend self
     FLAMES_PATH = File.expand_path(File.dirname(__FILE__))+"/../../speak/flame_war.yml"

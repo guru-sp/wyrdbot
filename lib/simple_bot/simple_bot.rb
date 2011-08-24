@@ -3,52 +3,53 @@
 # Original code by Kevin Glowacz
 # found in http://github.com/kjg/simpleircbot
 
-class SimpleIrcBot
-  include Utils
-  include Greetings
-  include EdRobot
-  include Logger
+module SimpleIrcBot
+  class Bot
+    include Utils
+    include Greetings
+    include EdRobot
+    include Logger
 
-  def initialize(config)
-    @socket = TCPSocket.open(config["network"]["server"], config["network"]["port"])
-    @channel = config["network"]["channel"]
-    @nick = config["user"]["nickname"]
+    def initialize(config)
+      @socket = TCPSocket.open(config["network"]["server"], config["network"]["port"])
+      @channel = config["network"]["channel"]
+      @nick = config["user"]["nickname"]
 
-    say "NICK #{@nick}"
-    say "USER #{@nick} 0 * #{@nick.capitalize}"
-    say "JOIN ##{@channel}"
-  end
-
-  def say(msg)
-    @socket.puts msg
-  end
-
-  def say_to_chan(msg)
-    say "PRIVMSG ##{@channel} :#{msg}"
-  end
-
-  def run
-    until @socket.eof? do
-      message_control(@socket, @socket.gets)
-    end
-  end
-
-  def message_control(socket, full_message)
-    logger.debug(full_message.chomp)
-
-    if full_message.match(/^PING :(.*)$/)
-      say "PONG #{$~[1]}"
-      $stderr.write(full_message)
-      return
+      say "NICK #{@nick}"
+      say "USER #{@nick} 0 * #{@nick.capitalize}"
+      say "JOIN ##{@channel}"
     end
 
-    if full_message.match(/:([^!]+)!.*PRIVMSG ##{@channel} :(.*)$/)
-      nick, content = $~[1], $~[2]
+    def say(msg)
+      @socket.puts msg
+    end
 
-      if content.match(/^!([^\s?]*)\s*(.*?)?\s*$/)
-        target, query = $~[1], $~[2]
+    def say_to_chan(msg)
+      say "PRIVMSG ##{@channel} :#{msg}"
+    end
 
-        case target
+    def run
+      until @socket.eof? do
+        message_control(@socket, @socket.gets)
+      end
+    end
+
+    def message_control(socket, full_message)
+      logger.debug(full_message.chomp)
+
+      if full_message.match(/^PING :(.*)$/)
+        say "PONG #{$~[1]}"
+        $stderr.write(full_message)
+        return
+      end
+
+      if full_message.match(/:([^!]+)!.*PRIVMSG ##{@channel} :(.*)$/)
+        nick, content = $~[1], $~[2]
+
+        if content.match(/^!([^\s?]*)\s*(.*?)?\s*$/)
+          target, query = $~[1], $~[2]
+
+          case target
           when 'add_quote'
             unless query.downcase.match(/#{@nick.downcase}/)
               quote = Quote.new(query)
@@ -87,23 +88,23 @@ class SimpleIrcBot
             say_to_chan(response)
           else
             say_to_chan("Ow, isso ae ainda não está implementado...Pull request!!")
+          end
+          return
+        elsif content.match(/^#{@nick}[,:]([^\s]*)\s+(.*)\n?$/)
+          target, query = $~[1], $~[2]
+          execute_query(query.chop, nick)
+        elsif is_a_greet?(content)
+          say_to_chan(greet(content, nick))
+        else
+          say_to_chan(FlameWar.flame_on(content))
         end
-        return
-      elsif content.match(/^#{@nick}[,:]([^\s]*)\s+(.*)\n?$/)
-        target, query = $~[1], $~[2]
-        execute_query(query.chop, nick)
-      elsif is_a_greet?(content)
-        say_to_chan(greet(content, nick))
-      else
-        say_to_chan(FlameWar.flame_on(content))
       end
+    rescue => e
+      logger.error("Message control for '#{full_message}' failed with error: #{e.message}")
     end
-  rescue => e
-    logger.error("Message control for '#{full_message}' failed with error: #{e.message}")
-  end
 
-  def execute_query(query, nick)
-    case query
+    def execute_query(query, nick)
+      case query
       when 'teste'
         say_to_chan "Tudo ok por aqui, #{nick}"
       when 'memoria', 'memória'
@@ -112,11 +113,13 @@ class SimpleIrcBot
         say_to_chan "Respondo a memoria e teste, e to assistindo algumas paradas com exclamação, como !quote, !add_quote, !google, !doc, !dolar, !agendatech, e traduções com !t-en-pt por exemplo."
       else
         say_to_chan("#{nick}: #{ask_to_ed(query)}")
+      end
+    end
+
+    def quit
+      say "PART ##{@channel} :Saindo!"
+      say 'QUIT'
     end
   end
 
-  def quit
-    say "PART ##{@channel} :Saindo!"
-    say 'QUIT'
-  end
 end

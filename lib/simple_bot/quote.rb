@@ -1,5 +1,5 @@
 # encoding: utf-8
-class SimpleIrcBot
+module SimpleIrcBot
   class Quote
     QUOTES_PATH = File.expand_path(File.dirname(__FILE__))+"/../../speak/quotes.yml"
 

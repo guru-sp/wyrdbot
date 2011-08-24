@@ -1,4 +1,4 @@
-class SimpleIrcBot
+module SimpleIrcBot
   module Logger
     LOG_PATH = File.expand_path(File.dirname(__FILE__))+"/../../log/wyrd.log"
 

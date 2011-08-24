@@ -17,7 +17,7 @@ describe "SimpleIrcBot" do
 
   subject {
     config = YAML.load_file File.join(File.expand_path(File.dirname(__FILE__)), "../config/wyrd.yml")
-    SimpleIrcBot.new(config)
+    SimpleIrcBot::Bot.new(config)
   }
 
   it "should call agendatech to verify the next meeting" do
@@ -91,7 +91,7 @@ describe "SimpleIrcBot" do
       SimpleIrcBot::FlameWar.should_receive(:on!)
       subject.message_control(@socket, ":PotHix ! PRIVMSG ##{CHANNEL} :!flame on")
     end
-    
+
     it "should call the correct method to disable flame war" do
       SimpleIrcBot::FlameWar.should_receive(:off!)
       subject.message_control(@socket, ":PotHix ! PRIVMSG ##{CHANNEL} :!flame off")

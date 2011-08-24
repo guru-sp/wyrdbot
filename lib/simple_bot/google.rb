@@ -1,7 +1,7 @@
 # encoding: utf-8
 require "nokogiri"
 
-class SimpleIrcBot
+module SimpleIrcBot
   class Google
     G_SITE = 'http://www.google.com.br'
     G_PATH = '/search'
