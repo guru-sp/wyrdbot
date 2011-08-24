@@ -12,7 +12,8 @@ class SimpleIrcBot
       events.select! do |event|
         event["evento"]["estado"] == "SP" && event["evento"]["nome"].downcase.match(/guru/)
       end
-      "O próximo evento está cadastrado para #{events.first["evento"]["data"]}"
+      date = events.first["evento"]["data"].match(/(?<year>[0-9]{4})-(?<month>[0-9]{2})-(?<day>[0-9]{2})T(?<hour>[0-9]{2}:[0-9]{2})/)
+      "O próximo evento do Guru-SP está cadastrado para #{date[:day]}/#{date[:month]}/#{date[:year]} às #{date[:hour]}"
     rescue
       "Nenhum evento do Guru-SP cadastrado no Agendatech"
     end
