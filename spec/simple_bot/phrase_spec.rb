@@ -7,7 +7,7 @@ describe "SimpleIrcBot::Phrase" do
   it "should add a new phrase to the phrases file" do
     subject.add!
     phrases_file = subject.class.file
-    phrases_file[:quotes][phrases_file[:quotes].size - 1].should == subject.phrase
+    phrases_file["phrases"][phrases_file["phrases"].size - 1].should == subject.phrase
   end
 
   it "should return a random phrase" do
@@ -16,10 +16,7 @@ describe "SimpleIrcBot::Phrase" do
     subject.class.random.should subject.class.file[not_so_random_number]
   end
 
-  it "should retrieve a phrase from a given user" do
-    phrases = {:phrases => ["<PotHix> is here", "<agaelebe> I'm a bot", "<qmx> meh."]}
-    YAML.should_receive(:load_file).twice.and_return(phrases)
-    subject.class.random_by_user("PotHix").should eql("<PotHix> is here")
-    subject.class.random_by_user("qmx").should eql("<qmx> meh.")
+  it "should return the class name downcased as a symbol" do
+    subject.class.class_name.should eql(:phrase)
   end
 end

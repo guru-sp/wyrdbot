@@ -40,12 +40,12 @@ describe "SimpleIrcBot" do
   context "when retrieving quotes" do
     before do
       @quote_message = "<qmx> Eu amo Ruby 1.9"
-      @mock_quote = SimpleIrcBot::Phrase.new(@quote_message)
-      SimpleIrcBot::Phrase.stub(:new).with(@quote_message).and_return(@mock_quote)
+      @mock_quote = SimpleIrcBot::Quote.new(@quote_message)
+      SimpleIrcBot::Quote.stub(:new).with(@quote_message).and_return(@mock_quote)
     end
 
     it "should call the correct show a quote when calling !quote command" do
-      SimpleIrcBot::Phrase.should_receive(:random)
+      SimpleIrcBot::Quote.should_receive(:random)
       subject.message_control(@socket, ":PotHix ! PRIVMSG ##{CHANNEL} :!quote")
     end
 
@@ -70,17 +70,17 @@ describe "SimpleIrcBot" do
 
     context "when retrieving a quote" do
       it "should call the correct show a quote when calling !quote command" do
-        SimpleIrcBot::Phrase.should_receive(:random)
+        SimpleIrcBot::Quote.should_receive(:random)
         subject.message_control(@socket, ":PotHix ! PRIVMSG ##{CHANNEL} :!quote")
       end
 
       it "should not call random by user method when a space is passed" do
-        SimpleIrcBot::Phrase.should_receive(:random)
+        SimpleIrcBot::Quote.should_receive(:random)
         subject.message_control(@socket, ":PotHix ! PRIVMSG ##{CHANNEL} :!quote ")
       end
 
       it "should call the method to return a quote from a specific user" do
-        SimpleIrcBot::Phrase.should_receive(:random_by_user).with("qmx")
+        SimpleIrcBot::Quote.should_receive(:random_by_user).with("qmx")
         subject.message_control(@socket, ":PotHix ! PRIVMSG ##{CHANNEL} :!quote qmx")
       end
     end

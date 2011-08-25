@@ -1,8 +1,6 @@
 # encoding: utf-8
 module SimpleIrcBot
   class Phrase
-    PHRASES_PATH = File.expand_path(File.dirname(__FILE__))+"/../../speak/quotes.yml"
-
     attr_reader :phrase
 
     def initialize(phrase)
@@ -10,25 +8,25 @@ module SimpleIrcBot
     end
 
     def add!
+      phrases_path = File.expand_path(File.dirname(__FILE__))+"/../../talk_files/#{self.class.class_name}.yml"
       phrases = self.class.file
-      phrases[:quotes] << phrase
-      File.open(PHRASES_PATH, "w"){|f| YAML.dump(phrases, f)}
+      p "#{self.class.class_name}s"
+      phrases["#{self.class.class_name}s"] << phrase
+      File.open(phrases_path, "w"){|f| YAML.dump(phrases, f)}
     end
 
     def self.random
-      self.file[:quotes][rand(self.file[:quotes].size)]
-    end
-
-    def self.random_by_user(query)
-      user = query.split(" ").first
-      user_phrases = self.file[:phrases].select do |phrase|
-        phrase.match(/<#{user}>/)
-      end
-      user_phrases[rand(user_phrases.size)]
+      phrases = self.file["#{self.class_name}s"]
+      phrases[rand(phrases.size)]
     end
 
     def self.file
-      YAML.load_file(PHRASES_PATH)
+      phrases_path = File.expand_path(File.dirname(__FILE__))+"/../../talk_files/#{self.class_name}.yml"
+      YAML.load_file(phrases_path)
+    end
+
+    def self.class_name
+      self.name.gsub(/.*::(\w)/,"\\1").downcase.to_sym
     end
   end
 end

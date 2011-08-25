@@ -3,7 +3,7 @@ vendor/
 debian/tmp
 google_api.key
 .rvmrc
-speak/quotes.yml
+talk_files/*.yml
 bin/wyrd.pid
 config/wyrd.yml
 *.tar.gz
