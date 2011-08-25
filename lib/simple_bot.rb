@@ -4,6 +4,7 @@ require "socket"
 require "open-uri"
 require "json"
 require "logger"
+require "daemons"
 
 require "simple_bot/logger"
 require "simple_bot/ed_robot"

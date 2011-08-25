@@ -82,6 +82,8 @@ module SimpleIrcBot
             say_to_chan(dolar_to_real)
           when 'google'
             say_to_chan(Google.search(query))
+          when 'motorcycle'
+            say_to_chan(Motorcycle.random)
           when /^t/
             wrong_message = "Ow usa o formato: t-idioma1-idioma2. #fikdik"
             response = target =~ /^t-(..)-(..)/ ? Google.translate($~[1], $~[2], query) : wrong_message
