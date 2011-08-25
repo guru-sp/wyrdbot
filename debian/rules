@@ -34,9 +34,9 @@ install: build
 	mkdir -p $(DEST)/config
 
 	cp google_api.key $(DEST)
-	cp speak/greetings.yml $(DEST)/speak/
-	cp speak/flame_war.yml $(DEST)/speak/
-	cp speak/quotes.yml.example $(DEST)/speak/
+	cp talk_files/greetings.yml $(DEST)/speak/
+	cp talk_files/flame_war.yml $(DEST)/speak/
+	cp talk_files/quotes.yml.example $(DEST)/speak/
 	cp config/wyrd.yml.example $(DEST)/config/
 	cp Gemfile* $(DEST)
 	cp bin/bot.rb $(DEST)/bin/bot.rb
