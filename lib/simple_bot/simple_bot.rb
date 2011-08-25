@@ -82,6 +82,10 @@ module SimpleIrcBot
             say_to_chan(dolar_to_real)
           when 'google'
             say_to_chan(Google.search(query))
+          when 'add_motorcycle'
+            motorcycle = Motorcycle.new(query)
+            motorcycle.add!
+            say_to_chan("Nova moto adicionada com sucesso! \\,,/")
           when 'motorcycle'
             say_to_chan(Motorcycle.random)
           when /^t/
