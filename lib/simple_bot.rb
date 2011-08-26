@@ -5,6 +5,7 @@ require "open-uri"
 require "json"
 require "logger"
 require "daemons"
+require "redtube"
 require "pathname"
 
 require "simple_bot/logger"
@@ -18,6 +19,7 @@ require "simple_bot/quote"
 require "simple_bot/motorcycle"
 require "simple_bot/simple_bot"
 require "simple_bot/redhead"
+require "simple_bot/pr0n"
 
 module SimpleBot
   def self.root

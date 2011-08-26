@@ -56,7 +56,7 @@ module SimpleBot
 
           case target
           when 'add_quote'
-            unless query.downcase.match(/#{@nick.downcase}/)
+            unless query.match(/#{@nick.downcase}/i)
               quote = Quote.new(query)
               quote.add!
               say_to_chan("Boa! Seu quote foi adicionado com sucesso! \\o/")
@@ -98,6 +98,8 @@ module SimpleBot
             say_to_chan(Redhead.fetch)
           when 'git'
             say_to_chan(REPO)
+          when 'pr0n'
+            say_to_chan(Pr0n.search(query))
           when 'count'
             say "NAMES #guru-sp"
           when 'add_motorcycle'
