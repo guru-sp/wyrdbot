@@ -1,3 +1,10 @@
+wyrd (0.1.4) stable; urgency=low
+
+  * Refactoring phrase to sentence
+  * Adding commands to add flamewar via bot
+
+ -- PotHix <pothix@pothix.com>  Sun, 26 Aug 2011 11:36:00 -0300
+
 wyrd (0.1.3) stable; urgency=low
 
   * New !count command
