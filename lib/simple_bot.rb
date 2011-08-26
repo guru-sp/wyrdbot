@@ -20,6 +20,7 @@ require "simple_bot/motorcycle"
 require "simple_bot/simple_bot"
 require "simple_bot/redhead"
 require "simple_bot/pr0n"
+require "simple_bot/asian"
 
 module SimpleBot
   def self.root

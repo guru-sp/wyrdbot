@@ -96,6 +96,8 @@ module SimpleBot
             say_to_chan(Google.search(query))
           when 'ruiva'
             say_to_chan(Redhead.fetch)
+          when 'asian'
+            say_to_chan(Asian.fetch)
           when 'git'
             say_to_chan(REPO)
           when 'pr0n'
