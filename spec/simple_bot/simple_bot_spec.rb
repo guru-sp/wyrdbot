@@ -121,6 +121,13 @@ describe "SimpleBot" do
       SimpleBot::FlameWar.should_receive(:flame_on)
       subject.message_control(@socket, ":PotHix ! PRIVMSG ##{CHANNEL} :ruby sux")
     end
+
+    it "should add a flame sentence" do
+      key = "php"
+      sentence = "php is a virus"
+      SimpleBot::FlameWar.should_receive(:add).with(key, sentence)
+      subject.message_control(@socket, ":PotHix ! PRIVMSG ##{CHANNEL} :!add_flame #{key}, #{sentence}")
+    end
   end
 
   context "using google services" do

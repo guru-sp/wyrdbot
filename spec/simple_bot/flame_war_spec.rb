@@ -27,4 +27,10 @@ describe SimpleBot::FlameWar do
       subject.flame_on("I love motorcycles").should be_nil
     end
   end
+
+  it "should add a flame" do
+    sentence =  "programa virus ai..."
+    subject.add("php", sentence)
+    subject.all_sentences["php"].should include(sentence)
+  end
 end

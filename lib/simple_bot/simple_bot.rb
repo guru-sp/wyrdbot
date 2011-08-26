@@ -69,6 +69,13 @@ module SimpleBot
             else
               say_to_chan(Quote.random)
             end
+          when 'add_flame'
+            if query =~ /^(\w+)\s*,\s*(.+)/
+              FlameWar.add($~[1], $~[2])
+              say_to_chan("Aff... seu trollzinho da Bahia... Flame adicionado")
+            else
+              say_to_chan("Ow usa o formato: !add_flame <key>, <sentence>")
+            end
           when 'flame'
             if query == "on"
               FlameWar.on!
