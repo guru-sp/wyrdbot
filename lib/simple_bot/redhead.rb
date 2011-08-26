@@ -3,14 +3,12 @@ module SimpleIrcBot
   class Redhead
     ENDPOINT = "http://fuckyeahredhair.tumblr.com/api/read?num=50&type=photo"
 
-    attr_reader :url
-
     class << self
       def fetch(fetcher=HTTParty)
         response = fetcher.get(ENDPOINT)
 
         document = Nokogiri::XML(response)
-        @url = biggest_pictures(posts(document)).sample
+        biggest_pictures(posts(document)).sample
       end
 
       private
