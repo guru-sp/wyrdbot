@@ -49,10 +49,10 @@ module SimpleBot
       end
 
       if full_message.match(/:([^!]+)!.*PRIVMSG ##{@channel} :(.*)$/)
-        nick, content = $~[1], $~[2]
+        nick, content = $1, $2
 
         if content.match(/^!([^\s?]*)\s*(.*?)?\s*$/)
-          target, query = $~[1], $~[2]
+          target, query = $1, $2
 
           case target
           when 'add_quote'
@@ -71,7 +71,7 @@ module SimpleBot
             end
           when 'add_flame'
             if query =~ /^(\w+)\s*,\s*(.+)/
-              FlameWar.add($~[1], $~[2])
+              FlameWar.add($1, $2)
               say_to_chan("Aff... seu trollzinho da Bahia... Flame adicionado")
             else
               say_to_chan("Ow usa o formato: !add_flame <key>, <sentence>")
@@ -110,14 +110,14 @@ module SimpleBot
             say_to_chan(Motorcycle.random)
           when /^t/
             wrong_message = "Ow usa o formato: t-idioma1-idioma2. #fikdik"
-            response = target =~ /^t-(..)-(..)/ ? Google.translate($~[1], $~[2], query) : wrong_message
+            response = target =~ /^t-(..)-(..)/ ? Google.translate($1, $2, query) : wrong_message
             say_to_chan(response)
           else
             say_to_chan("Ow, isso ae ainda não está implementado...Pull request!!")
           end
           return
         elsif content.match(/^#{@nick}[,:]([^\s]*)\s+(.*)\n?$/)
-          target, query = $~[1], $~[2]
+          target, query = $1, $2
           execute_query(query.chop, nick)
         elsif greet?(content)
           say_to_chan(greet(content, nick))
@@ -136,7 +136,7 @@ module SimpleBot
       when 'memoria', 'memória'
         say_to_chan "Ainda tenho #{%x(free -m).split(' ')[9]}MB livres, #{nick}"
       when 'help'
-        say_to_chan "Respondo a memoria e teste, e to assistindo algumas paradas com exclamação, como !quote, !add_quote, !google, !doc, !dolar, !agendatech, e traduções com !t-en-pt por exemplo."
+        say_to_chan "Respondo a memoria e teste, e to assistindo algumas paradas com exclamação, como !quote, !add_quote, !google, !doc, !dolar, !agendatech, !pr0n, !ruiva, !count, !motorcycle, !add_motorcycle, !add_flame, !git, e traduções com !t-en-pt por exemplo."
       else
         say_to_chan("#{nick}: #{ask_to_ed(query)}")
       end
