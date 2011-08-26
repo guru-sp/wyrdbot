@@ -39,10 +39,13 @@ module SimpleBot
     def message_control(socket, full_message)
       logger.debug(full_message.chomp)
 
-      if full_message.match(/^PING :(.*)$/)
-        say "PONG #{$~[1]}"
-        $stderr.write(full_message)
-        return
+      case full_message
+      when /\APING :(.*)$/
+        say "PONG #{$1}"
+        return $stderr.write(full_message)
+      when /#{@nick} = #guru-sp :(.*?)$/
+        count = $1.split(" ").size
+        return say_to_chan("Agora tem #{count} pessoas no canal")
       end
 
       if full_message.match(/:([^!]+)!.*PRIVMSG ##{@channel} :(.*)$/)
@@ -88,6 +91,8 @@ module SimpleBot
             say_to_chan(Redhead.fetch)
           when 'git'
             say_to_chan(REPO)
+          when 'count'
+            say "NAMES #guru-sp"
           when 'add_motorcycle'
             motorcycle = Motorcycle.new(query)
             motorcycle.add!
