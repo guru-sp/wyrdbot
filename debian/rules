@@ -33,11 +33,13 @@ install: build
 	mkdir -p $(DEST)/talk_files
 	mkdir -p $(DEST)/config
 
-	cp config/google_api.key.example $(DEST)/config/google_api.key
+	cp config/wyrd.yml.example $(DEST)/config/
+	cp config/google_api.key.example $(DEST)/config/
+
 	cp talk_files/greetings.yml $(DEST)/talk_files/
 	cp talk_files/flame_war.yml $(DEST)/talk_files/
 	cp talk_files/*.yml.example $(DEST)/talk_files/
-	cp config/wyrd.yml.example $(DEST)/config/
+
 	cp Gemfile* $(DEST)
 	cp bin/bot.rb $(DEST)/bin/bot.rb
 	cp -r .bundle* $(DEST)
