@@ -1,10 +1,12 @@
 # encoding: utf-8
 module SimpleIrcBot
   module Utils
-    def dolar_to_real
-      url = 'http://economia.uol.com.br/cotacoes/cambio/dolar-comercial-estados-unidos-principal.jhtm'
-      doc = Nokogiri::HTML(open(URI.escape(url)))
-      doc.xpath("//div[@class='cambio']/ul/li[1]/p/span[2]").text
+    def dollar_to_real(query)
+      exchange = open("http://finance.yahoo.com/d/quotes.csv?e=.csv&f=sl1d1t1&s=USDBRL=X").read.split(",")[1]
+      amount = Float(query.gsub(",", ".")) rescue 1
+      "R$ %.2f" % (amount.to_f * exchange.to_f)
+    rescue Exception => error
+      "Não consegui saber a cotação"
     end
 
     def agendatech

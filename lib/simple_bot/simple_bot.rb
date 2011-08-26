@@ -81,7 +81,7 @@ module SimpleIrcBot
           when 'doc'
             say_to_chan("Documentação: #{query}")
           when 'dolar'
-            say_to_chan(dolar_to_real)
+            say_to_chan(dollar_to_real(query))
           when 'google'
             say_to_chan(Google.search(query))
           when 'ruiva'
