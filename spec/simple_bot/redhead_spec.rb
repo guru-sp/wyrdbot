@@ -2,20 +2,8 @@
 require 'spec_helper'
 
 describe SimpleBot::Redhead do
-  class FetcherFake
-    def get(*args)
-      RSpec::Mocks::Mock.new(:body => Support::Fixtures.load_file('redheads.xml'))
-    end
-  end
-
-  describe ".fetch" do
-    context "mocked connection" do
-      let(:fetcher) { FetcherFake.new }
-      subject { described_class.fetch(fetcher) }
-
-      it "returns the biggest image from the set" do
-        subject.should == "http://26.media.tumblr.com/tumblr_lqd645Twx01qhp4e9o1_500.jpg"
-      end
-    end
+  it "returns random image" do
+    SimpleBot::Redhead.stub_chain(:open, :read => Support::Fixtures.load_file('redheads.xml'))
+    SimpleBot::Redhead.fetch.should match(/\.(jpe?g|png|gif)/)
   end
 end
