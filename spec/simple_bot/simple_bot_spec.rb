@@ -121,6 +121,12 @@ describe "SimpleIrcBot" do
       subject.message_control(@socket, ":PotHix ! PRIVMSG ##{CHANNEL} :!t-asdf^asdf hell")
     end
 
+    it "should return the translation using the correct format" do
+      SimpleIrcBot::Google.should_receive(:translate).with("en", "pt", "hell").and_return("inferno")
+      subject.should_receive(:say_to_chan).with("inferno")
+      subject.message_control(@socket, ":PotHix ! PRIVMSG ##{CHANNEL} :!t-en-pt hell")
+    end
+
     it "should search on google for a given query" do
       SimpleIrcBot::Google.should_receive(:search).with("pothix")
       subject.message_control(@socket, ":PotHix ! PRIVMSG ##{CHANNEL} :!google pothix")
