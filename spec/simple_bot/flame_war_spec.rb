@@ -1,7 +1,7 @@
 # encoding: utf-8
 require "spec_helper"
 
-describe SimpleIrcBot::FlameWar do
+describe SimpleBot::FlameWar do
 
   it "should enable flame war" do
     subject.on!

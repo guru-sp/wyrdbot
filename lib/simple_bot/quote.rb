@@ -1,5 +1,5 @@
 # encoding: utf-8
-module SimpleIrcBot
+module SimpleBot
   class Quote < Phrase
     def self.random_by_search(query)
       regex = Regexp.new(query) rescue nil

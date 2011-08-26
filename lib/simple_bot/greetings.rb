@@ -1,8 +1,8 @@
 # encoding: utf-8
-module SimpleIrcBot
+module SimpleBot
   module Greetings
     def greet_phrases
-      @greets ||= YAML.load_file(SimpleIrcBot.root.join("talk_files/greetings.yml"))
+      @greets ||= YAML.load_file(SimpleBot.root.join("talk_files/greetings.yml"))
     end
 
     def day_part

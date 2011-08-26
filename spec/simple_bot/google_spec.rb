@@ -1,7 +1,7 @@
 # encoding: utf-8
 require "spec_helper"
 
-describe SimpleIrcBot::Google do
+describe SimpleBot::Google do
   before {subject.class.stub(:key => "AAAAAAAAAAAAAA")}
   it "should call JSON parse when trying to translate" do
     subject.class.stub(:translation_result => '{data: {translations: [{translatedText: "inferno"}]}}')

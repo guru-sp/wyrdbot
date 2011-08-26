@@ -3,7 +3,7 @@
 # Original code by Kevin Glowacz
 # found in http://github.com/kjg/simpleircbot
 
-module SimpleIrcBot
+module SimpleBot
   class Bot
     REPO = "https://github.com/guru-sp/Guru-sp-IRC-Bot"
 

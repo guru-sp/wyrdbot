@@ -19,7 +19,7 @@ require "simple_bot/motorcycle"
 require "simple_bot/simple_bot"
 require "simple_bot/redhead"
 
-module SimpleIrcBot
+module SimpleBot
   def self.root
     @root ||= Pathname.new(File.expand_path("../..", __FILE__))
   end

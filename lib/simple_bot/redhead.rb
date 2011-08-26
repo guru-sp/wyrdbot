@@ -1,5 +1,5 @@
 # encoding: utf-8
-module SimpleIrcBot
+module SimpleBot
   class Redhead
     ENDPOINT = "http://fuckyeahredhair.tumblr.com/api/read?num=50&type=photo"
 

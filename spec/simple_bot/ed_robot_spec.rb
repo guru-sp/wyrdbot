@@ -1,9 +1,9 @@
 # encoding: utf-8
 require "spec_helper"
 
-describe SimpleIrcBot::EdRobot do
+describe SimpleBot::EdRobot do
   before :all do
-    class Dummy; include SimpleIrcBot::EdRobot; end
+    class Dummy; include SimpleBot::EdRobot; end
   end
 
   subject { Dummy.new }

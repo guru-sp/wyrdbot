@@ -1,8 +1,8 @@
 # encoding: utf-8
 require "spec_helper"
 
-describe "SimpleIrcBot::Phrase" do
-  subject { SimpleIrcBot::Phrase.new("I'm testing if this thing works...") }
+describe "SimpleBot::Phrase" do
+  subject { SimpleBot::Phrase.new("I'm testing if this thing works...") }
 
   it "should add a new phrase to the phrases file" do
     subject.add!

@@ -1,8 +1,8 @@
 # encoding: utf-8
 require "spec_helper"
 
-describe "SimpleIrcBot::Utils" do
-  class Dummy; include SimpleIrcBot::Utils; end
+describe "SimpleBot::Utils" do
+  class Dummy; include SimpleBot::Utils; end
 
   subject { Dummy.new }
 

@@ -3,7 +3,7 @@
 require "httparty"
 require "timeout"
 
-module SimpleIrcBot
+module SimpleBot
   module EdRobot
     def ask_to_ed(question)
       Timeout.timeout(2) do

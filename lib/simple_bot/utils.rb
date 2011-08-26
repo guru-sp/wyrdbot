@@ -1,5 +1,5 @@
 # encoding: utf-8
-module SimpleIrcBot
+module SimpleBot
   module Utils
     def dollar_to_real(query)
       exchange = open("http://finance.yahoo.com/d/quotes.csv?e=.csv&f=sl1d1t1&s=USDBRL=X").read.split(",")[1]

@@ -1,5 +1,5 @@
 # encoding: utf-8
-module SimpleIrcBot
+module SimpleBot
   module FlameWar
     extend self
     def flame_on(message)
@@ -27,7 +27,7 @@ module SimpleIrcBot
     end
 
     def file
-      YAML.load_file(SimpleIrcBot.root.join("talk_files/flame_war.yml"))
+      YAML.load_file(SimpleBot.root.join("talk_files/flame_war.yml"))
     end
   end
 end

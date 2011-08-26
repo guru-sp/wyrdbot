@@ -1,5 +1,5 @@
 # encoding: utf-8
-module SimpleIrcBot
+module SimpleBot
   class Phrase
     attr_reader :phrase
 
@@ -8,7 +8,7 @@ module SimpleIrcBot
     end
 
     def add!
-      phrases_path = SimpleIrcBot.root.join("talk_files/#{self.class.class_name}.yml")
+      phrases_path = SimpleBot.root.join("talk_files/#{self.class.class_name}.yml")
       phrases = self.class.file
       p "#{self.class.class_name}s"
       phrases["#{self.class.class_name}s"] << phrase
@@ -21,7 +21,7 @@ module SimpleIrcBot
     end
 
     def self.file
-      phrases_path = SimpleIrcBot.root.join("talk_files/#{self.class_name}.yml")
+      phrases_path = SimpleBot.root.join("talk_files/#{self.class_name}.yml")
       YAML.load_file(phrases_path)
     end
 

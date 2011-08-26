@@ -1,7 +1,7 @@
 # encoding: utf-8
 require 'spec_helper'
 
-describe SimpleIrcBot::Redhead do
+describe SimpleBot::Redhead do
   class FetcherFake
     def get(*args)
       Support::Fixtures.load_file('redheads.xml')
