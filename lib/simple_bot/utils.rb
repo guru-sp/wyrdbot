@@ -12,7 +12,7 @@ module SimpleBot
     def agendatech
       events = JSON.parse(open("http://www.agendatech.com.br/rss/feed.json").read)
       events.select! do |event|
-        event["evento"]["estado"] == "SP" && event["evento"]["nome"].downcase.match(/guru/)
+        event["evento"]["estado"] == "SP" && event["evento"]["nome"].match(/guru/i)
       end
       date = events.first["evento"]["data"].match(/(?<year>[0-9]{4})-(?<month>[0-9]{2})-(?<day>[0-9]{2})T(?<hour>[0-9]{2}:[0-9]{2})/)
       "O próximo evento do Guru-SP está cadastrado para #{date[:day]}/#{date[:month]}/#{date[:year]} às #{date[:hour]}"
