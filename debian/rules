@@ -37,7 +37,6 @@ install: build
 	cp config/google_api.key.example $(DEST)/config/
 
 	cp talk_files/greetings.yml $(DEST)/talk_files/
-	cp talk_files/flame_war.yml $(DEST)/talk_files/
 	cp talk_files/*.yml.example $(DEST)/talk_files/
 
 	cp Gemfile* $(DEST)
