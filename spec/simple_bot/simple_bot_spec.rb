@@ -156,6 +156,14 @@ describe "SimpleBot" do
     end
   end
 
+  context "looking for asians" do
+    it "should return a picture of an asian girl" do
+      SimpleBot::Asian.should_receive(:fetch).and_return("korea")
+      subject.should_receive(:say_to_chan).with("korea")
+      subject.message_control(@socket, ":PotHix ! PRIVMSG ##{CHANNEL} :!asian")
+    end
+  end
+
   context "asking for the git repository" do
     it "should return the github address" do
       subject.should_receive(:say_to_chan).with("https://github.com/guru-sp/Guru-sp-IRC-Bot")
