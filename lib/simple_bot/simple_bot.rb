@@ -60,7 +60,7 @@ module SimpleIrcBot
             end
           when 'quote'
             unless query.empty?
-              say_to_chan(Quote.random_by_user(query))
+              say_to_chan(Quote.random_by_search(query))
             else
               say_to_chan(Quote.random)
             end
