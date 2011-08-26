@@ -20,6 +20,14 @@ describe "SimpleIrcBot" do
     SimpleIrcBot::Bot.new(config)
   }
 
+  it "should instantiate root directory as pathname" do
+    SimpleIrcBot.root.should be_a(Pathname)
+  end
+
+  it "should set root directory" do
+    SimpleIrcBot.root.to_s.should == File.expand_path("../../..", __FILE__)
+  end
+
   it "should call agendatech to verify the next meeting" do
     subject.should_receive(:agendatech)
     subject.message_control(@socket, ":PotHix ! PRIVMSG ##{CHANNEL} :!agendatech")
