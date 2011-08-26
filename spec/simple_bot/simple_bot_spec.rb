@@ -92,7 +92,7 @@ describe "SimpleIrcBot" do
       end
 
       it "should call the method to return a quote from a specific user" do
-        SimpleIrcBot::Quote.should_receive(:random_by_user).with("qmx")
+        SimpleIrcBot::Quote.should_receive(:random_by_search).with("qmx")
         subject.message_control(@socket, ":PotHix ! PRIVMSG ##{CHANNEL} :!quote qmx")
       end
     end
