@@ -1,7 +1,7 @@
 # encoding: utf-8
 module SimpleBot
   module Greetings
-    def greet_phrases
+    def greet_sentences
       @greets ||= YAML.load_file(SimpleBot.root.join("talk_files/greetings.yml"))
     end
 
@@ -26,8 +26,8 @@ module SimpleBot
 
     module_function
     def say_greet_for(asking_message, nick)
-      phrase = greet_phrases["greet"][asking_message.to_s][day_part.to_s]
-      sprintf(phrase, {:nick => nick, :hours => Time.now.strftime("%H:%M")})
+      sentence = greet_sentences["greet"][asking_message.to_s][day_part.to_s]
+      sprintf(sentence, {:nick => nick, :hours => Time.now.strftime("%H:%M")})
     end
   end
 end

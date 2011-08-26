@@ -6,7 +6,7 @@ describe "SimpleBot::Motorcycle" do
 
   it "should add a new motorcycle quote to the motorcycles file" do
     subject.add!
-    phrases_file = subject.class.file
-    phrases_file["motorcycles"][phrases_file["motorcycles"].size - 1].should == subject.phrase
+    sentences_file = subject.class.file
+    sentences_file["motorcycles"][sentences_file["motorcycles"].size - 1].should == subject.sentence
   end
 end

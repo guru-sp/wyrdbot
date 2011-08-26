@@ -45,20 +45,20 @@ describe "SimpleBot::Greetings" do
 
       it "should greet correctly with morning greet for a morning asking" do
         resp = sprintf(greet_responses["greet"]["good_morning"]["morning"], {:nick => nick})
-        response_phrase = subject.greet("Bom dia fio di quenga!", nick)
-        response_phrase.should eql(resp)
+        response_sentence = subject.greet("Bom dia fio di quenga!", nick)
+        response_sentence.should eql(resp)
       end
 
       it "should greet correctly with morning greet for a afternoon asking" do
         resp = sprintf(greet_responses["greet"]["good_afternoon"]["morning"], {:nick => nick})
-        response_phrase = subject.greet("Boa tarde fio di quenga!", nick)
-        response_phrase.should eql(resp)
+        response_sentence = subject.greet("Boa tarde fio di quenga!", nick)
+        response_sentence.should eql(resp)
       end
 
       it "should greet correctly with morning greet for a night asking" do
         resp = sprintf(greet_responses["greet"]["good_evening"]["morning"], {:nick => nick})
-        response_phrase = subject.greet("Boa noite fio di quenga!", nick)
-        response_phrase.should eql(resp)
+        response_sentence = subject.greet("Boa noite fio di quenga!", nick)
+        response_sentence.should eql(resp)
       end
     end
 
@@ -67,20 +67,20 @@ describe "SimpleBot::Greetings" do
 
       it "should greet correctly with morning greet for a morning asking" do
         resp = sprintf(greet_responses["greet"]["good_morning"]["afternoon"], {:nick => nick, :hours => hours})
-        response_phrase = subject.greet("Bom dia fio di quenga!", nick)
-        response_phrase.should eql(resp)
+        response_sentence = subject.greet("Bom dia fio di quenga!", nick)
+        response_sentence.should eql(resp)
       end
 
       it "should greet correctly with morning greet for a afternoon asking" do
         resp = sprintf(greet_responses["greet"]["good_afternoon"]["afternoon"], {:nick => nick})
-        response_phrase = subject.greet("Boa tarde fio di quenga!", nick)
-        response_phrase.should eql(resp)
+        response_sentence = subject.greet("Boa tarde fio di quenga!", nick)
+        response_sentence.should eql(resp)
       end
 
       it "should greet correctly with morning greet for a night asking" do
         resp = sprintf(greet_responses["greet"]["good_evening"]["afternoon"], {:nick => nick, :hours => hours})
-        response_phrase = subject.greet("Boa noite fio di quenga!", nick)
-        response_phrase.should eql(resp)
+        response_sentence = subject.greet("Boa noite fio di quenga!", nick)
+        response_sentence.should eql(resp)
       end
     end
 
@@ -89,20 +89,20 @@ describe "SimpleBot::Greetings" do
 
       it "should greet correctly with morning greet for a morning asking" do
         resp = sprintf(greet_responses["greet"]["good_morning"]["night"], {:nick => nick})
-        response_phrase = subject.greet("Bom dia fio di quenga!", nick)
-        response_phrase.should eql(resp)
+        response_sentence = subject.greet("Bom dia fio di quenga!", nick)
+        response_sentence.should eql(resp)
       end
 
       it "should greet correctly with morning greet for a afternoon night" do
         resp = sprintf(greet_responses["greet"]["good_afternoon"]["night"], {:nick => nick, :hours => hours})
-        response_phrase = subject.greet("Boa tarde fio di quenga!", nick)
-        response_phrase.should eql(resp)
+        response_sentence = subject.greet("Boa tarde fio di quenga!", nick)
+        response_sentence.should eql(resp)
       end
 
       it "should greet correctly with morning greet for a night night" do
         resp = sprintf(greet_responses["greet"]["good_evening"]["night"], {:nick => nick})
-        response_phrase = subject.greet("Boa noite fio di quenga!", nick)
-        response_phrase.should eql(resp)
+        response_sentence = subject.greet("Boa noite fio di quenga!", nick)
+        response_sentence.should eql(resp)
       end
     end
   end

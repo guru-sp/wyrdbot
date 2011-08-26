@@ -1,28 +1,27 @@
 # encoding: utf-8
 module SimpleBot
-  class Phrase
-    attr_reader :phrase
+  class Sentence
+    attr_reader :sentence
 
-    def initialize(phrase)
-      @phrase = phrase
+    def initialize(sentence)
+      @sentence = sentence
     end
 
     def add!
-      phrases_path = SimpleBot.root.join("talk_files/#{self.class.class_name}.yml")
-      phrases = self.class.file
-      p "#{self.class.class_name}s"
-      phrases["#{self.class.class_name}s"] << phrase
-      File.open(phrases_path, "w"){|f| YAML.dump(phrases, f)}
+      sentences_path = SimpleBot.root.join("talk_files/#{self.class.class_name}.yml")
+      sentences = self.class.file
+      sentences["#{self.class.class_name}s"] << sentence
+      File.open(sentences_path, "w"){|f| YAML.dump(sentences, f)}
     end
 
     def self.random
-      phrases = self.file["#{self.class_name}s"]
-      phrases[rand(phrases.size)]
+      sentences = self.file["#{self.class_name}s"]
+      sentences[rand(sentences.size)]
     end
 
     def self.file
-      phrases_path = SimpleBot.root.join("talk_files/#{self.class_name}.yml")
-      YAML.load_file(phrases_path)
+      sentences_path = SimpleBot.root.join("talk_files/#{self.class_name}.yml")
+      YAML.load_file(sentences_path)
     end
 
     def self.class_name
