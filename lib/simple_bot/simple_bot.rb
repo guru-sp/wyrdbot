@@ -133,5 +133,4 @@ module SimpleIrcBot
       say 'QUIT'
     end
   end
-
 end

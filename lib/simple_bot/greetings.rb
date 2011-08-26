@@ -14,16 +14,16 @@ module SimpleIrcBot
 
     def greet(greeting, nick)
       case greeting
-      when /[Bb]om [Dd]ia/   then say_greet_for(:good_morning, nick)
-      when /[Bb]oa [Tt]arde/ then say_greet_for(:good_afternoon, nick)
-      when /[Bb]oa [Nn]oite/ then say_greet_for(:good_evening, nick)
+      when /bom dia/i   then say_greet_for(:good_morning, nick)
+      when /boa tarde/i then say_greet_for(:good_afternoon, nick)
+      when /boa noite/i then say_greet_for(:good_evening, nick)
       end
     end
 
     def greet?(greeting)
-      greeting.match(/[Bb]om [Dd]ia/) ||
-      greeting.match(/[Bb]oa [Tt]arde/) ||
-      greeting.match(/[Bb]oa [Nn]oite/)
+      greeting.match(/bom dia/i) ||
+      greeting.match(/boa tarde/i) ||
+      greeting.match(/boa noite/i)
     end
 
     module_function
