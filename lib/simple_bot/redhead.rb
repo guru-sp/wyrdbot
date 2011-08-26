@@ -7,7 +7,7 @@ module SimpleBot
       def fetch(fetcher=HTTParty)
         response = fetcher.get(ENDPOINT)
 
-        document = Nokogiri::XML(response)
+        document = Nokogiri::XML(response.body)
         biggest_pictures(posts(document)).sample
       end
 
