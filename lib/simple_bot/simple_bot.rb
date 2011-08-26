@@ -5,6 +5,8 @@
 
 module SimpleIrcBot
   class Bot
+    REPO = "https://github.com/guru-sp/Guru-sp-IRC-Bot"
+
     include Utils
     include Greetings
     include EdRobot
@@ -84,6 +86,8 @@ module SimpleIrcBot
             say_to_chan(Google.search(query))
           when 'ruiva'
             say_to_chan(Redhead.fetch)
+          when 'git'
+            say_to_chan(REPO)
           when 'add_motorcycle'
             motorcycle = Motorcycle.new(query)
             motorcycle.add!

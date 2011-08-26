@@ -141,6 +141,13 @@ describe "SimpleIrcBot" do
     end
   end
 
+  context "asking for the git repository" do
+    it "should return the github address" do
+      subject.should_receive(:say_to_chan).with("https://github.com/guru-sp/Guru-sp-IRC-Bot")
+      subject.message_control(@socket, ":PotHix ! PRIVMSG ##{CHANNEL} :!git")
+    end
+  end
+
   context "in unknown messages (actions)" do
     it "should ask to Ed" do
       question = "2 * 2"
