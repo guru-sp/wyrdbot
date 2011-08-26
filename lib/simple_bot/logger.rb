@@ -1,6 +1,6 @@
 module SimpleIrcBot
   module Logger
-    LOG_PATH = File.expand_path(File.dirname(__FILE__))+"/../../log/wyrd.log"
+    LOG_PATH = File.expand_path("../../../log/wyrd.log", __FILE__)
 
     def logger
       @logger ||= resolve_logger

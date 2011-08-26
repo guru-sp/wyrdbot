@@ -6,6 +6,7 @@ module SimpleIrcBot
     G_SITE = 'http://www.google.com.br'
     G_PATH = '/search'
     G_VARS = 'q'
+    FILE_PATH = File.expand_path("../../../google_api.key", __FILE__)
 
     attr_reader :api_key
 
@@ -33,8 +34,7 @@ module SimpleIrcBot
 
    private
     def self.key
-      file_path = "#{File.expand_path(File.dirname(__FILE__))}/../../google_api.key"
-      @api_key ||= File.open(file_path).read.chomp
+      @api_key ||= File.read(FILE_PATH).chomp
     rescue
       raise "Google API code not found! Please add a file called google_api.key with Guru-SP api key to the project root"
     end

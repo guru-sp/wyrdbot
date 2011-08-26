@@ -2,7 +2,7 @@
 module SimpleIrcBot
   module FlameWar
     extend self
-    FLAMES_PATH = File.expand_path(File.dirname(__FILE__))+"/../../talk_files/flame_war.yml"
+    FLAMES_PATH = File.expand_path("../../../talk_files/flame_war.yml", __FILE__)
 
     def flame_on(message)
       if on?

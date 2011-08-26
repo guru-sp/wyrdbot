@@ -8,7 +8,7 @@ module SimpleIrcBot
     end
 
     def add!
-      phrases_path = File.expand_path(File.dirname(__FILE__))+"/../../talk_files/#{self.class.class_name}.yml"
+      phrases_path = File.expand_path("../../../talk_files/#{self.class.class_name}.yml", __FILE__)
       phrases = self.class.file
       p "#{self.class.class_name}s"
       phrases["#{self.class.class_name}s"] << phrase
@@ -21,7 +21,7 @@ module SimpleIrcBot
     end
 
     def self.file
-      phrases_path = File.expand_path(File.dirname(__FILE__))+"/../../talk_files/#{self.class_name}.yml"
+      phrases_path = File.expand_path("../../../talk_files/#{self.class_name}.yml", __FILE__)
       YAML.load_file(phrases_path)
     end
 
