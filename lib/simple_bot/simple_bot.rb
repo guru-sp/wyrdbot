@@ -105,7 +105,7 @@ module SimpleIrcBot
         elsif content.match(/^#{@nick}[,:]([^\s]*)\s+(.*)\n?$/)
           target, query = $~[1], $~[2]
           execute_query(query.chop, nick)
-        elsif is_a_greet?(content)
+        elsif greet?(content)
           say_to_chan(greet(content, nick))
         else
           say_to_chan(FlameWar.flame_on(content))

@@ -26,11 +26,11 @@ describe "SimpleIrcBot::Greetings" do
   end
 
   it "shoud return false if it is not a great" do
-    subject.is_a_greet?("ahh falo").should be_false
+    subject.greet?("ahh falo").should be_false
   end
 
   it "shoud return true if it is a great" do
-    subject.is_a_greet?("Bom dia").should be_true
+    subject.greet?("Bom dia").should be_true
   end
 
   context "when greeting" do

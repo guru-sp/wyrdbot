@@ -20,7 +20,7 @@ module SimpleIrcBot
       end
     end
 
-    def is_a_greet?(greeting)
+    def greet?(greeting)
       greeting.match(/[Bb]om [Dd]ia/) ||
       greeting.match(/[Bb]oa [Tt]arde/) ||
       greeting.match(/[Bb]oa [Nn]oite/)
