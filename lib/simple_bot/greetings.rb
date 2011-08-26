@@ -21,9 +21,7 @@ module SimpleIrcBot
     end
 
     def greet?(greeting)
-      greeting.match(/bom dia/i) ||
-      greeting.match(/boa tarde/i) ||
-      greeting.match(/boa noite/i)
+      greeting =~ /(bom dia|boa (tarde|noite))/i
     end
 
     module_function
