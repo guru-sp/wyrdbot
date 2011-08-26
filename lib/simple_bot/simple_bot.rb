@@ -43,7 +43,7 @@ module SimpleBot
       when /\APING :(.*)$/
         say "PONG #{$1}"
         return $stderr.write(full_message)
-      when /#{@nick} = #guru-sp :(.*?)$/
+      when /#{@nick} = ##{@channel} :(.*?)$/
         count = $1.split(" ").size
         return say_to_chan("Agora tem #{count} pessoas no canal")
       end
