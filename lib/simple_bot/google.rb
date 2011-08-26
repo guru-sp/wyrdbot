@@ -34,7 +34,7 @@ module SimpleIrcBot
 
    private
     def self.key
-      @api_key ||= File.read(FILE_PATH).chomp
+      @api_key ||= File.read(SimpleIrcBot.root.join("config/google_api.key")).chomp
     rescue
       raise "Google API code not found! Please add a file called google_api.key with Guru-SP api key to the project root"
     end

@@ -2,8 +2,6 @@
 module SimpleIrcBot
   module FlameWar
     extend self
-    FLAMES_PATH = File.expand_path("../../../talk_files/flame_war.yml", __FILE__)
-
     def flame_on(message)
       if on?
         words = message.downcase.gsub(/[^\w\s]/, "").split(/\s+/)
@@ -29,7 +27,7 @@ module SimpleIrcBot
     end
 
     def file
-      YAML.load_file(FLAMES_PATH)
+      YAML.load_file(SimpleIrcBot.root.join("talk_files/flame_war.yml"))
     end
   end
 end

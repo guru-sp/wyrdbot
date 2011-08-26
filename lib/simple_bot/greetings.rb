@@ -2,7 +2,7 @@
 module SimpleIrcBot
   module Greetings
     def greet_phrases
-      @greets ||= YAML.load_file(File.expand_path("../../../talk_files/greetings.yml", __FILE__))
+      @greets ||= YAML.load_file(SimpleIrcBot.root.join("talk_files/greetings.yml"))
     end
 
     def day_part
