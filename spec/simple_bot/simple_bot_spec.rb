@@ -128,7 +128,7 @@ describe "SimpleIrcBot" do
   end
 
   context "looking for redheads" do
-    it "should return the translation using the correct format" do
+    it "should return a picture of a redhead girl" do
       SimpleIrcBot::Redhead.should_receive(:fetch).and_return("inferno")
       subject.should_receive(:say_to_chan).with("inferno")
       subject.message_control(@socket, ":PotHix ! PRIVMSG ##{CHANNEL} :!ruiva")
