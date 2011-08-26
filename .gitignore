@@ -4,7 +4,7 @@ debian/tmp
 google_api.key
 .rvmrc
 talk_files/*.yml
-bin/wyrd.pid
+*.pid
 config/wyrd.yml
 *.tar.gz
 
