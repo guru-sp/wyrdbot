@@ -57,7 +57,7 @@ describe "SimpleBot" do
     end
 
     it "should call the correct show a quote when calling !troll command" do
-      SimpleBot::Troll.should_receive(:random_by_nick).with("morellon")
+      SimpleBot::Troll.should_receive(:random_to).with("morellon")
       subject.message_control(@socket, ":PotHix ! PRIVMSG ##{CHANNEL} :!troll morellon")
     end
 

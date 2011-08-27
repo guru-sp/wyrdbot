@@ -109,7 +109,7 @@ module SimpleBot
             motorcycle.add!
             say_to_chan("Trollagem adicionada com sucesso!")
           when 'troll'
-            say_to_chan(Troll.random_by_nick(query))
+            say_to_chan(Troll.random_to(query))
           when 'add_motorcycle'
             motorcycle = Motorcycle.new(query)
             motorcycle.add!
