@@ -104,10 +104,16 @@ module SimpleBot
             say_to_chan(Pr0n.search(query))
           when 'count'
             say "NAMES #guru-sp"
+          when 'add_troll'
+            motorcycle = Troll.new(query)
+            motorcycle.add!
+            say_to_chan("Trollagem adicionada com sucesso!")
+          when 'troll'
+            say_to_chan(Troll.random_by_nick(query))
           when 'add_motorcycle'
             motorcycle = Motorcycle.new(query)
             motorcycle.add!
-            say_to_chan("Nova moto adicionada com sucesso! \\,,/")
+            say_to_chan("Moto adicionada com sucesso! \\,,/")
           when 'motorcycle'
             say_to_chan(Motorcycle.random)
           when /^t/

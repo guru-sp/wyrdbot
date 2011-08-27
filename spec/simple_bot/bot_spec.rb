@@ -50,8 +50,15 @@ describe "SimpleBot" do
       @quote_message = "<qmx> Eu amo Ruby 1.9"
       @mock_quote = SimpleBot::Quote.new(@quote_message)
       @mock_motorcycle = SimpleBot::Motorcycle.new(@quote_message)
+      @mock_troll = SimpleBot::Troll.new(@quote_message)
       SimpleBot::Quote.stub(:new).with(@quote_message).and_return(@mock_quote)
       SimpleBot::Motorcycle.stub(:new).with(@quote_message).and_return(@mock_motorcycle)
+      SimpleBot::Troll.stub(:new).with(@quote_message).and_return(@mock_troll)
+    end
+
+    it "should call the correct show a quote when calling !troll command" do
+      SimpleBot::Troll.should_receive(:random_by_nick).with("morellon")
+      subject.message_control(@socket, ":PotHix ! PRIVMSG ##{CHANNEL} :!troll morellon")
     end
 
     it "should call the correct show a quote when calling !quote command" do
@@ -68,6 +75,11 @@ describe "SimpleBot" do
       it "should call the correct method to add a new quote when calling !add_quote command without mentioning the bot" do
         @mock_quote.should_receive(:add!)
         subject.message_control(@socket, ":PotHix ! PRIVMSG ##{CHANNEL} :!add_quote #{@quote_message}")
+      end
+
+      it "should call the correct method to add a new trolling when calling !add_troll command" do
+        @mock_troll.should_receive(:add!)
+        subject.message_control(@socket, ":PotHix ! PRIVMSG ##{CHANNEL} :!add_troll #{@quote_message}")
       end
 
       it "should call the correct method to add a new motorcycle when calling !add_motorcycle command" do
