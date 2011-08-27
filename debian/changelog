@@ -1,3 +1,9 @@
+wyrd (0.1.5) stable; urgency=low
+
+  * Adding commands to trolling purposes
+
+ -- PotHix <pothix@pothix.com>  Sun, 26 Aug 2011 23:26:00 -0300
+
 wyrd (0.1.4) stable; urgency=low
 
   * Refactoring phrase to sentence
