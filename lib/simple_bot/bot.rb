@@ -105,11 +105,15 @@ module SimpleBot
           when 'count'
             say "NAMES #guru-sp"
           when 'add_troll'
-            motorcycle = Troll.new(query)
-            motorcycle.add!
+            troll = Troll.new(query)
+            troll.add!
             say_to_chan("Trollagem adicionada com sucesso!")
           when 'troll'
-            say_to_chan(Troll.random_to(query))
+            if query.strip.empty?
+              say_to_chan("Trolla alguém, né idioti!")
+            else
+              say_to_chan(Troll.random_to(query))
+            end
           when 'add_motorcycle'
             motorcycle = Motorcycle.new(query)
             motorcycle.add!
