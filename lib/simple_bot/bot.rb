@@ -111,6 +111,8 @@ module SimpleBot
           when 'troll'
             if query.strip.empty?
               say_to_chan("Trolla alguém, né idioti!")
+            elsif query == @nick
+              say_to_chan("Ta se achando espertinho né, idiota? Não vou praticar self-trolling. ¬¬")
             else
               say_to_chan(Troll.random_to(query))
             end

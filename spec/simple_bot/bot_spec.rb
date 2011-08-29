@@ -56,6 +56,16 @@ describe "SimpleBot" do
       SimpleBot::Troll.stub(:new).with(@quote_message).and_return(@mock_troll)
     end
 
+    it "should not troll if the bot nickname was passed" do
+      subject.should_receive(:say_to_chan).with("Ta se achando espertinho né, idiota? Não vou praticar self-trolling. ¬¬")
+      subject.message_control(@socket, ":PotHix ! PRIVMSG ##{CHANNEL} :!troll #{NICK}")
+    end
+
+    it "should not troll if no nickname was passed" do
+      subject.should_receive(:say_to_chan).with("Trolla alguém, né idioti!")
+      subject.message_control(@socket, ":PotHix ! PRIVMSG ##{CHANNEL} :!troll")
+    end
+
     it "should call the correct show a quote when calling !troll command" do
       SimpleBot::Troll.should_receive(:random_to).with("morellon")
       subject.message_control(@socket, ":PotHix ! PRIVMSG ##{CHANNEL} :!troll morellon")
