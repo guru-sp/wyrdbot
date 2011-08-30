@@ -14,8 +14,13 @@ module SimpleBot
       events.select! do |event|
         event["evento"]["estado"] == "SP" && event["evento"]["nome"].match(/guru/i)
       end
-      date = events.first["evento"]["data"].match(/(?<year>[0-9]{4})-(?<month>[0-9]{2})-(?<day>[0-9]{2})T(?<hour>[0-9]{2}:[0-9]{2})/)
-      "O próximo evento do Guru-SP está cadastrado para #{date[:day]}/#{date[:month]}/#{date[:year]} às #{date[:hour]}"
+
+      event = events.first["evento"]
+      date = event["data"].match(/(?<year>[0-9]{4})-(?<month>[0-9]{2})-(?<day>[0-9]{2})/)
+      time = event["descricao"].match(/(?<hours>[0-9]?[0-9]:[0-9][0-9])/)
+
+      message = "O próximo evento do Guru-SP está cadastrado para #{date[:day]}/#{date[:month]}/#{date[:year]}"
+      message << " às #{time[:hours]}" if time
     rescue
       "Nenhum evento do Guru-SP cadastrado no Agendatech"
     end

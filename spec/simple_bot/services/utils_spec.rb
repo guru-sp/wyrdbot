@@ -8,9 +8,14 @@ describe "SimpleBot::Utils" do
 
   describe "#agendatech" do
     it "should get the guru-sp events" do
-      event_info = [{"evento"=>{"estado"=>"SP","nome"=>"Guru-SP","data"=>"2011-11-17T00:00:00-02:00"}}]
+      event_info = [{"evento"=> {
+        "estado"=>"SP",
+        "nome"=>"Guru-SP",
+        "data"=>"2011-11-17T00:00:00-02:00",
+        "descricao"=>"horário: 10:00"
+      }}]
       subject.stub_chain(:open, :read => event_info.to_json)
-      subject.agendatech.should match("17/11/2011 às 00:00")
+      subject.agendatech.should include("17/11/2011 às 00:00")
     end
 
     it "should get the message for 'no events'" do
