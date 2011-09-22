@@ -25,11 +25,22 @@ module SimpleBot
       qry  = "&source=#{sl}&target=#{dl}&q=#{query}"
       url = host + qry
 
-      text = JSON.parse(tranlation_result(url))
+      response = JSON.parse(google_request(url))
 
-      text["data"]["translations"].first["translatedText"]
+      response["data"]["translations"].first["translatedText"]
     rescue
+    end
 
+    def self.search_image(query)
+      default_image = "http://farm1.static.flickr.com/62/174356973_563e8ee775_b.jpg"
+      service_url = "https://ajax.googleapis.com/ajax/services/search/images"
+      query_params = "?v=1.0&key=#{self.key}&q=#{query}"
+      url = service_url + query_params
+
+      response = JSON.parse(google_request(url))
+      response["responseData"]["results"].first["unescapedUrl"]
+      rescue Exception => e
+        default_image
     end
 
    private
@@ -39,7 +50,7 @@ module SimpleBot
       raise "Google API code not found! Please add a file called google_api.key with Guru-SP api key to the project root"
     end
 
-    def self.tranlation_result(url)
+    def self.google_request(url)
       open(URI.encode(url)).read
     end
   end
