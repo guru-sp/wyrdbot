@@ -11,6 +11,7 @@ module SimpleBot
     include Greetings
     include EdRobot
     include Logger
+    include Mustache
 
     def initialize(config)
       @socket = TCPSocket.open(config["network"]["server"], config["network"]["port"])
@@ -126,6 +127,8 @@ module SimpleBot
             wrong_message = "Ow usa o formato: t-idioma1-idioma2. #fikdik"
             response = target =~ /^t-(..)-(..)/ ? Google.translate($1, $2, query) : wrong_message
             say_to_chan(response)
+          when "mustache"
+            say_to_chan(mustachify(query))
           else
             say_to_chan("Ow, isso ae ainda não está implementado...Pull request!!")
           end
@@ -150,7 +153,7 @@ module SimpleBot
       when 'memoria', 'memória'
         say_to_chan "Ainda tenho #{%x(free -m).split(' ')[9]}MB livres, #{nick}"
       when 'help'
-        say_to_chan "Respondo a memoria e teste, e to assistindo algumas paradas com exclamação, como !quote, !add_quote, !google, !doc, !dolar, !agendatech, !pr0n, !ruiva, !asian, !count, !motorcycle, !troll,  !add_troll, !add_motorcycle, !add_flame, !git, e traduções com !t-en-pt por exemplo."
+        say_to_chan "Respondo a memoria e teste, e to assistindo algumas paradas com exclamação, como !quote, !add_quote, !google, !doc, !dolar, !agendatech, !pr0n, !ruiva, !asian, !count, !motorcycle, !troll,  !add_troll, !add_motorcycle, !add_flame, !git, !mustache, e traduções com !t-en-pt por exemplo."
       else
         say_to_chan("#{nick}: #{ask_to_ed(query)}")
       end
