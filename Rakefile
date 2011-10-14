@@ -1,6 +1,15 @@
+require 'bundler'
+Bundler.setup
+
+require 'rspec/core/rake_task'
+
 LOGIN_USER = "root"
 WYRD_SERVER = "186.202.61.143"
 
+task RSpec::Core::RakeTask.new do |t|
+end
+
+desc "Clean local configuration files"
 task :clean do |t|
   print "[wyrd] Cleaning local files... "
   %x(rm -rf ../wyrd_*)
@@ -11,6 +20,7 @@ task :clean do |t|
   puts "done!"
 end
 
+desc "Generate debian package and deploy it"
 task :deploy => [:clean] do |t|
   puts "[wyrd] Generating the Debian package"
   %x(dpkg-buildpackage)
@@ -28,11 +38,13 @@ task :deploy => [:clean] do |t|
   %x(rm -rf .bundle)
 end
 
+desc "Backup quotes"
 task :backup do |t|
   puts "[wyrd] Backup quotes"
   %x(ssh #{LOGIN_USER}@#{WYRD_SERVER} 'tar czvf ~/wyrd_quotes.tar.gz /opt/wyrd/talk_files/*.yml')
 end
 
+desc "Download backed up quotes"
 task :quotes => [:backup] do |t|
   puts "[wyrd] Downloading quotes backups"
   %x(scp #{LOGIN_USER}@#{WYRD_SERVER}:~/wyrd_quotes.tar.gz talk_files/)
