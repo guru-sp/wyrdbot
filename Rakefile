@@ -6,8 +6,9 @@ require 'rspec/core/rake_task'
 LOGIN_USER = "root"
 WYRD_SERVER = "186.202.61.143"
 
-task RSpec::Core::RakeTask.new do |t|
-end
+task :default => [:spec]
+
+task RSpec::Core::RakeTask.new
 
 desc "Clean local configuration files"
 task :clean do |t|
