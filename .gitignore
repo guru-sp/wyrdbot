@@ -16,3 +16,4 @@ debian/postinst.debhelper
 debian/postrm.debhelper
 debian/prerm.debhelper
 debian/substvars
+coverage/
