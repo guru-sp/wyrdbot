@@ -1,5 +1,5 @@
 # encoding: utf-8
-libs = ["yaml", "socket", "open-uri", "json", "logger", "daemons", "redtube", "pathname"]
+libs = ["yaml", "socket", "open-uri", "json", "logger", "daemons", "pathname"]
 libs.each {|file| require file}
 
 require "simple_bot/flame_war"
