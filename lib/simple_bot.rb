@@ -2,6 +2,7 @@
 libs = ["yaml", "socket", "open-uri", "json", "logger", "daemons", "pathname"]
 libs.each {|file| require file}
 
+require "simple_bot/event_listener"
 require "simple_bot/flame_war"
 require "simple_bot/greetings"
 require "simple_bot/logger"
