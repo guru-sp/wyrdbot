@@ -9,4 +9,7 @@ gem "httparty"
 group :development, :test do
   gem "rspec"
   gem 'simplecov', :require => false
+  gem "guard-rspec"
+  gem "rb-fsevent"
+  gem 'growl'
 end
