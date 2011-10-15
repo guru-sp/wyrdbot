@@ -55,6 +55,8 @@ module SimpleBot
         if content.match(/^!([^\s?]*)\s*(.*?)?\s*$/)
           target, query = $1, $2
 
+          return EventListener.dispatch(target, query, self) if EventListener.registered?(target)
+
           case target
           when 'add_quote'
             unless query.match(/#{@nick.downcase}/i)

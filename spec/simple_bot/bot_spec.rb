@@ -178,6 +178,21 @@ describe "SimpleBot" do
     end
   end
 
+  describe "#message_control" do
+    context "dispatching events to EventListener" do
+      it "dispatches the event" do
+        SimpleBot::EventListener.should_receive(:registered?).
+                                 with('abobrinha').
+                                 and_return(true)
+
+        SimpleBot::EventListener.should_receive(:dispatch).
+                                 with('abobrinha', 'Salada', subject)
+
+        subject.message_control(@socket, ":PotHix ! PRIVMSG ##{CHANNEL} :!abobrinha Salada")
+      end
+    end
+  end
+
   context "looking for asians" do
     it "should return a picture of an asian girl" do
       SimpleBot::Asian.should_receive(:fetch).and_return("korea")
