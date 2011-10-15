@@ -97,8 +97,6 @@ module SimpleBot
             say_to_chan(dollar_to_real(query))
           when 'google'
             say_to_chan(Google.search(query))
-          when 'ruiva'
-            say_to_chan(Redhead.fetch)
           when 'asian'
             say_to_chan(Asian.fetch)
           when 'git'

@@ -170,14 +170,6 @@ describe "SimpleBot" do
     end
   end
 
-  context "looking for redheads" do
-    it "should return a picture of a redhead girl" do
-      SimpleBot::Redhead.should_receive(:fetch).and_return("inferno")
-      subject.should_receive(:say_to_chan).with("inferno")
-      subject.message_control(@socket, ":PotHix ! PRIVMSG ##{CHANNEL} :!ruiva")
-    end
-  end
-
   describe "#message_control" do
     context "dispatching events to EventListener" do
       it "dispatches the event" do
