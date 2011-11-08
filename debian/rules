@@ -40,6 +40,7 @@ install: build
 	cp talk_files/*.yml.example $(DEST)/talk_files/
 
 	cp Gemfile* $(DEST)
+	cp Rakefile $(DEST)
 	cp bin/bot.rb $(DEST)/bin/bot.rb
 	cp -r .bundle* $(DEST)
 	cp -r lib $(DEST)/
