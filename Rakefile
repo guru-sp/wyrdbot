@@ -42,11 +42,5 @@ end
 desc "Backup quotes"
 task :backup do |t|
   puts "[wyrd] Backup quotes"
-  %x(ssh #{LOGIN_USER}@#{WYRD_SERVER} 'tar czvf ~/wyrd_quotes.tar.gz /opt/wyrd/talk_files/*.yml')
-end
-
-desc "Download backed up quotes"
-task :quotes => [:backup] do |t|
-  puts "[wyrd] Downloading quotes backups"
-  %x(scp #{LOGIN_USER}@#{WYRD_SERVER}:~/wyrd_quotes.tar.gz talk_files/)
+  %x(ssh #{LOGIN_USER}@#{WYRD_SERVER} 'tar czvf ~/wyrd_quotes-#{Time.now.strftime("%d%m%Y")}.tar.gz /opt/wyrd/talk_files/*.yml')
 end
