@@ -13,6 +13,7 @@ describe "SimpleBot" do
     user = "USER #{NICK} 0 * #{NICK.capitalize}"
     join = "JOIN ##{CHANNEL}"
     @socket.stub(:puts)
+    @socket.stub(:gets)
   end
 
   subject {

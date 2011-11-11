@@ -18,9 +18,13 @@ module SimpleBot
       @channel = config["network"]["channel"]
       @nick = config["user"]["nickname"]
 
+      @socket.gets
       say "NICK #{@nick}"
+      @socket.gets
       say "USER #{@nick} 0 * #{@nick.capitalize}"
+      @socket.gets
       say "JOIN ##{@channel}"
+      @socket.gets
     end
 
     def say(msg)
