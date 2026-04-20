@@ -1,7 +1,8 @@
-network: 
-    server: irc.freenode.net
-    port: 6667
+network:
+    server: irc.libera.chat
+    port: 6697
+    tls: true
     channel: guru-sp
-    
+
 user:
-    nickname: wyrd
+    nickname: wyrdbot
