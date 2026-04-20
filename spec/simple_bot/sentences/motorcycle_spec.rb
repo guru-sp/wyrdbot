@@ -7,6 +7,6 @@ describe "SimpleBot::Motorcycle" do
   it "should add a new motorcycle to the motorcycles file" do
     subject.add!
     sentences_file = subject.class.file
-    sentences_file["motorcycles"][sentences_file["motorcycles"].size - 1].should == subject.sentence
+    expect(sentences_file["motorcycles"][sentences_file["motorcycles"].size - 1]).to eq(subject.sentence)
   end
 end

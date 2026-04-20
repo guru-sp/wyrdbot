@@ -7,16 +7,16 @@ describe "SimpleBot::Sentence" do
   it "should add a new sentence to the sentences file" do
     subject.add!
     sentences_file = subject.class.file
-    sentences_file["sentences"][sentences_file["sentences"].size - 1].should == subject.sentence
+    expect(sentences_file["sentences"][sentences_file["sentences"].size - 1]).to eq(subject.sentence)
   end
 
   it "should return a random sentence" do
     not_so_random_number = 0
-    subject.class.should_receive(:rand).and_return(not_so_random_number)
-    subject.class.random.should subject.class.file[not_so_random_number]
+    expect(subject.class).to receive(:rand).and_return(not_so_random_number)
+    expect(subject.class.random).to eq(subject.class.file["sentences"][not_so_random_number])
   end
 
   it "should return the class name downcased as a symbol" do
-    subject.class.class_name.should eql(:sentence)
+    expect(subject.class.class_name).to eql(:sentence)
   end
 end

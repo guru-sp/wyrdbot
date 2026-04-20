@@ -5,32 +5,33 @@ describe SimpleBot::FlameWar do
 
   it "should enable flame war" do
     subject.on!
-    subject.should be_on
+    expect(subject).to be_on
   end
 
   it "should disable flame war" do
     subject.off!
-    subject.should_not be_on
+    expect(subject).not_to be_on
   end
 
   context "when flame war is on" do
-    before {subject.on!}
+    before { subject.on! }
+
     it "should flame on the first found key" do
-      subject.random_by_key("ruby").should == "Ruby fede"
+      expect(subject.random_by_key("ruby")).to eq("Ruby fede")
     end
 
     it "should flame on the first found key" do
-      subject.flame_on("I love ruby!").should == "Ruby fede"
+      expect(subject.flame_on("I love ruby!")).to eq("Ruby fede")
     end
 
     it "should not flame if no key was found" do
-      subject.flame_on("I love motorcycles").should be_nil
+      expect(subject.flame_on("I love motorcycles")).to be_nil
     end
   end
 
   it "should add a flame" do
-    sentence =  "programa virus ai..."
+    sentence = "programa virus ai..."
     subject.add("php", sentence)
-    subject.all_sentences["php"].should include(sentence)
+    expect(subject.all_sentences["php"]).to include(sentence)
   end
 end

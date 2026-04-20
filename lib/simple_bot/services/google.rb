@@ -11,8 +11,7 @@ module SimpleBot
     attr_reader :api_key
 
     def self.search(params)
-      url = G_SITE + G_PATH + '?' + G_VARS + '=' + params
-      url = URI.escape(url)
+      url = G_SITE + G_PATH + '?' + G_VARS + '=' + URI.encode_www_form_component(params)
       doc = Nokogiri::HTML(open(url))
       str = doc.css('h3.r').to_s
       urls = str.scan(/<a href="([^"]+)"/)
@@ -51,7 +50,7 @@ module SimpleBot
     end
 
     def self.google_request(url)
-      open(URI.encode(url)).read
+      open(url).read
     end
   end
 end

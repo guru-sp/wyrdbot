@@ -7,6 +7,6 @@ describe "SimpleBot::Quote" do
   it "should add a new quote to the quotes file" do
     subject.add!
     sentences_file = subject.class.file
-    sentences_file["quotes"][sentences_file["quotes"].size - 1].should == subject.sentence
+    expect(sentences_file["quotes"][sentences_file["quotes"].size - 1]).to eq(subject.sentence)
   end
 end

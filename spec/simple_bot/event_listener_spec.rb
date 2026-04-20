@@ -2,36 +2,36 @@ require 'spec_helper'
 
 describe SimpleBot::EventListener do
   before(:each) do
-    described_class.stub(:events => {})
+    allow(described_class).to receive(:events).and_return({})
   end
 
-  let(:quote_mock) { mock }
+  let(:quote_mock) { double }
 
   describe ".on" do
     it "registers an event to a callable object" do
       described_class.on('quote', quote_mock)
 
-      described_class.events[:quote].should be(quote_mock)
+      expect(described_class.events[:quote]).to be(quote_mock)
     end
 
     it "registers more than one event to a callable object" do
       described_class.on('quote', 'add_quote', quote_mock)
 
-      described_class.events[:quote].should be(quote_mock)
-      described_class.events[:add_quote].should be(quote_mock)
+      expect(described_class.events[:quote]).to be(quote_mock)
+      expect(described_class.events[:add_quote]).to be(quote_mock)
     end
   end
 
   describe ".dispatch" do
-    let(:quote_mock) { mock }
-    let(:bot_mock) { mock }
+    let(:quote_mock) { double }
+    let(:bot_mock) { double }
 
     before(:each) do
       described_class.on('quote', quote_mock)
     end
 
     it "calls the appropriate handler on event" do
-      quote_mock.should_receive(:quote).with(bot_mock, '<FulanoDeTal> Hello guru-sp')
+      expect(quote_mock).to receive(:quote).with(bot_mock, '<FulanoDeTal> Hello guru-sp')
 
       described_class.dispatch('quote', '<FulanoDeTal> Hello guru-sp', bot_mock)
     end
@@ -46,17 +46,17 @@ describe SimpleBot::EventListener do
   describe ".registered?" do
     context "event is not registered" do
       it "returns false" do
-        described_class.should_not be_registered('quote')
+        expect(described_class).not_to be_registered('quote')
       end
     end
 
     context "event is registered" do
       before(:each) do
-        described_class.on('quote', mock)
+        described_class.on('quote', double)
       end
 
       it "returns true" do
-        described_class.should be_registered('quote')
+        expect(described_class).to be_registered('quote')
       end
     end
   end

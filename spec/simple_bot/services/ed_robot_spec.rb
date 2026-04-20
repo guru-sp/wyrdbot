@@ -22,10 +22,10 @@ describe SimpleBot::EdRobot do
       }
     }
 
-    response = mock("response")
-    response.should_receive(:body).and_return("wyrd")
+    response = double("response")
+    expect(response).to receive(:body).and_return("wyrd")
 
-    HTTParty.should_receive(:get).with(service, options).and_return(response)
-    subject.ask_to_ed(question).should eql "wyrd"
+    expect(HTTParty).to receive(:get).with(service, options).and_return(response)
+    expect(subject.ask_to_ed(question)).to eql("wyrd")
   end
 end

@@ -1,15 +1,14 @@
-source "http://rubygems.org"
+source "https://rubygems.org"
+
+ruby "4.0.1"
 
 gem "nokogiri"
-
-gem "json", :platforms => [:mri_18, :ruby_18]
 gem "daemons"
 gem "httparty"
+gem "logger"
 
 group :development, :test do
   gem "rspec"
-  gem 'simplecov', :require => false
-  gem "guard-rspec"
+  gem "simplecov", require: false
   gem "rb-fsevent"
-  gem 'growl'
 end
