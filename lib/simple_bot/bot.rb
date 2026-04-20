@@ -3,6 +3,8 @@
 # Original code by Kevin Glowacz
 # found in http://github.com/kjg/simpleircbot
 
+require 'openssl'
+
 module SimpleBot
   class Bot
     REPO = "https://github.com/guru-sp/Guru-sp-IRC-Bot"
@@ -14,7 +16,20 @@ module SimpleBot
     include Mustache
 
     def initialize(config)
-      @socket = TCPSocket.open(config["network"]["server"], config["network"]["port"])
+      tcp = TCPSocket.open(config["network"]["server"], config["network"]["port"])
+
+      @socket = if config["network"]["tls"]
+        ctx = OpenSSL::SSL::SSLContext.new
+        ctx.set_params(verify_mode: OpenSSL::SSL::VERIFY_PEER)
+        ssl = OpenSSL::SSL::SSLSocket.new(tcp, ctx)
+        ssl.hostname = config["network"]["server"]
+        ssl.sync_close = true
+        ssl.connect
+        ssl
+      else
+        tcp
+      end
+
       @channel = config["network"]["channel"]
       @nick = config["user"]["nickname"]
 
